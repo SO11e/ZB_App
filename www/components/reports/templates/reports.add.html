@@ -1,0 +1,40 @@
+<ion-view view-title="Melding toevoegen">
+    <ion-content class="padding">
+        <div class="card">
+            <ion-item class="item-image">
+                <img src="img/kaart.png"/>
+            </ion-item>
+        </div>
+        <form>
+            <ion-list>
+                <label class="item item-input">
+                    <input type="text" placeholder="Straat">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Postcode">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Plaats">
+                </label>
+                <label class="item item-input">
+                    <textarea placeholder="Toelichting"></textarea>
+                </label>
+            </ion-list>
+            <button class="button button-block button-energized" ng-hide="showPhoto" ng-click="addPhoto()">Nieuwe
+                foto maken
+            </button>
+            <button class="button button-block button-balanced" ng-hide="showPhoto" ng-click="removePhoto()">Eigen foto
+                toevoegen
+            </button>
+            <div class="card" ng-show="showPhoto">
+                <ion-item class="item-image">
+                    <img src="img/locatie.png"/>
+                </ion-item>
+            </div>
+            <button class="button button-block button-assertive" ng-show="showPhoto" ng-click="removePhoto()">Foto
+                verwijderen
+            </button>
+            <button class="button button-block button-positive">Melding opslaan</button>
+        </form>
+    </ion-content>
+</ion-view>
