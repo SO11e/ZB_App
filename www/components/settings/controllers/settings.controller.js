@@ -1,3 +1,7 @@
-module.exports = function ($scope/*, SettingsFactory*/) {
-  // Create your own controller
+module.exports = function ($scope, $translate) {
+
+    $scope.switchLanguage = function (language) {
+        $translate.use(language);
+    };
+
 };

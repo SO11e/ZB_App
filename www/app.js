@@ -4,6 +4,7 @@ require('./components/settings/settings.module');
 
 angular.module('zonnebloem', [
         'ionic',
+        'pascalprecht.translate',
         'zonnebloem.main',
         'zonnebloem.reports',
         'zonnebloem.settings'

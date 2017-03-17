@@ -1,10 +1,9 @@
 {
   "REPORTS_LIST_TITLE": "Meldingen",
-  "REPORTS_ADD_TITLE": "Melding toevoegen",
-
   "REPORTS_ADDED_AT_DATE": "Toegevoegd op",
   "REPORTS_SOLVED_AT_DATE": "Opgelost op",
 
+  "REPORTS_ADD_TITLE": "Melding toevoegen",
   "REPORTS_ADD_PLACEHOLDER_STREET": "Straat",
   "REPORTS_ADD_PLACEHOLDER_POSTAL_CODE": "Postcode",
   "REPORTS_ADD_PLACEHOLDER_CITY": "Plaats",
@@ -12,5 +11,11 @@
   "REPORTS_ADD_TAKE_NEW_PHOTO": "Nieuwe foto maken",
   "REPORTS_ADD_SELECT_EXCISING_PHOTO": "Eigen foto toevoegen",
   "REPORTS_ADD_REMOVE_PHOTO": "Foto verwijderen",
-  "REPORTS_ADD_SAVE_REPORT": "Melding opslaan"
+  "REPORTS_ADD_SAVE_REPORT": "Melding opslaan",
+
+  "SETTINGS_TITLE": "Instellingen",
+  "SETTINGS_REGION_DIVIDER": "Regio",
+  "SETTINGS_LANGUAGE_DIVIDER": "Taal",
+  "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
+  "SETTINGS_LANGUAGE_ENGLISH": "Engels"
 }

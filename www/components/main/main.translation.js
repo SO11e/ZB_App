@@ -5,10 +5,15 @@ module.exports = function ($translateProvider) {
             prefix: 'locales/',
             suffix: '.json'
         })
-        .registerAvailableLanguageKeys(['nl'], {
+        .registerAvailableLanguageKeys(['nl', 'en'], {
             'nl' : 'nl',
-            'nl_NL': 'nl'
+            'nl_NL': 'nl',
+            'en': 'en',
+            'en_US': 'en',
+            'en_UK': 'en'
         })
         .preferredLanguage('nl')
         .fallbackLanguage('nl')
+        .determinePreferredLanguage()
+        .useSanitizeValueStrategy('escapeParameters')
 };
