@@ -1,13 +1,17 @@
 module.exports = function ($scope, $stateParams, ReportsFactory) {
 
-  $scope.report = ReportsFactory.getReport($stateParams.reportId);
+    $scope.report = ReportsFactory.getReport($stateParams.reportId);
 
-  $scope.addPhoto = function () {
-    $scope.showPhoto = true;
-  };
+    /*ReportsFactory.getReport($stateParams.reportId).then(function (report) {
+        $scope.report = report;
+    });*/
 
-  $scope.removePhoto = function () {
-    $scope.showPhoto = false;
-  };
+    $scope.addPhoto = function () {
+        $scope.showPhoto = true;
+    };
+
+    $scope.removePhoto = function () {
+        $scope.showPhoto = false;
+    };
 
 };

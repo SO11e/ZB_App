@@ -20,10 +20,10 @@ module.exports = function ($stateProvider) {
             }
         })
 
-        .state('app.report-add', {
-            url: '/report/add',
+        .state('app.reports.add', {
+            url: '/add',
             views: {
-                'report-add': {
+                'reports@app': {
                     templateUrl: 'components/reports/templates/reports.add.html',
                     controller: 'ReportController'
                 }
