@@ -10,55 +10,55 @@ var browserify = require('browserify');
 var vinylSource = require('vinyl-source-stream');
 
 var paths = {
-  sass: ['./scss/**/*.scss'],
-  browserify: ['./www/**/*.js']
+    sass: ['./scss/**/*.scss', './www/**/*.scss'],
+    browserify: ['./www/**/*.js']
 };
 
 gulp.task('serve:before', ['watch']);
 
 gulp.task('default', ['sass', 'browserify']);
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+gulp.task('sass', function (done) {
+    gulp.src('./scss/ionic.app.scss')
+        .pipe(sass())
+        .on('error', sass.logError)
+        .pipe(gulp.dest('./www/css/'))
+        .pipe(minifyCss({
+            keepSpecialComments: 0
+        }))
+        .pipe(rename({extname: '.min.css'}))
+        .pipe(gulp.dest('./www/css/'))
+        .on('end', done);
 });
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
     return browserify('./www/app.js', {debug: true})
         .bundle()
         .pipe(vinylSource('bundle.js'))
         .pipe(gulp.dest('./www'));
 });
 
-gulp.task('watch', ['sass', 'browserify'], function() {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.browserify, ['browserify']);
+gulp.task('watch', ['sass', 'browserify'], function () {
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.browserify, ['browserify']);
 });
 
-gulp.task('install', ['git-check'], function() {
-  return bower.commands.install()
-    .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-    });
+gulp.task('install', ['git-check'], function () {
+    return bower.commands.install()
+        .on('log', function (data) {
+            gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+        });
 });
 
-gulp.task('git-check', function(done) {
-  if (!sh.which('git')) {
-    console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
-      '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
-    );
-    process.exit(1);
-  }
-  done();
+gulp.task('git-check', function (done) {
+    if (!sh.which('git')) {
+        console.log(
+            '  ' + gutil.colors.red('Git is not installed.'),
+            '\n  Git, the version control system, is required to download Ionic.',
+            '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
+            '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+        );
+        process.exit(1);
+    }
+    done();
 });
