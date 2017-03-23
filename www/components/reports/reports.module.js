@@ -1,4 +1,4 @@
-var reportsModule = angular.module('zonnebloem.reports', []);
+var reportsModule = angular.module('zonnebloem.reports', ['ionic', 'ngCordova']);
 
 reportsModule.controller("ReportsController", require("./controllers/reports.controller"));
 reportsModule.controller("ReportController", require("./controllers/report.controller"));
