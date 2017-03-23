@@ -1,0 +1,26 @@
+<ion-view view-title="{{'REPORTS_LIST_TITLE' | translate}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-ios-plus-outline"
+                ui-sref="app.reports.add"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="list">
+            <div class="item item-thumbnail-left item-icon-right item-text-wrap"
+                 ng-repeat="report in reports"
+                 ui-sref="app.reports.details({reportId : report.id})">
+                <img ng-src="{{report.foto}}">
+                <h2>{{report.straat}} {{report.huisnummer}}</h2>
+                <p>{{report.postcode}} {{report.plaats}}</p>
+                <p ng-if="report.datum_opgelost == null">
+                    <span translate="REPORTS_ADDED_AT_DATE"></span>
+                    {{report.datum_gemeld | date : 'dd-MM-yyyy'}}
+                </p>
+                <p ng-if="report.datum_opgelost != null">
+                    <span translate="REPORTS_SOLVED_AT_DATE"></span>
+                    {{report.datum_gemeld | date : 'dd-MM-yyyy'}}
+                </p>
+                <i class="icon icon-accessory ion-ios-arrow-right "></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

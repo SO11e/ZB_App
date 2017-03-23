@@ -1,0 +1,19 @@
+<ion-view title="{{'SETTINGS_TITLE' | translate}}">
+  <ion-content>
+    <div class="item item-divider"
+         translate="SETTINGS_REGION_DIVIDER"></div>
+    <div class="item item-icon-right">
+      Noord-Brabant
+      <i class="icon icon-accessory ion-ios-arrow-right"></i>
+    </div>
+
+    <div class="item item-divider"
+         translate="SETTINGS_LANGUAGE_DIVIDER"></div>
+    <div class="item"
+         translate="SETTINGS_LANGUAGE_DUTCH"
+         ng-click="switchLanguage('nl')"></div>
+    <div class="item"
+         translate="SETTINGS_LANGUAGE_ENGLISH"
+         ng-click="switchLanguage('en')"></div>
+  </ion-content>
+</ion-view>

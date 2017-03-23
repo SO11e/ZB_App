@@ -1,0 +1,34 @@
+<ion-nav-bar class="bar-energized">
+
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+
+</ion-nav-bar>
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Reports Tab -->
+  <ion-tab title="{{'REPORTS_LIST_TITLE' | translate}}"
+           icon-off="ion-ios-list-outline"
+           icon-on="ion-ios-list"
+           ui-sref="app.reports">
+    <ion-nav-view name="reports"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Add Report -->
+  <!--<ion-tab title="{{'REPORTS_ADD_TITLE' | translate}}"
+           icon-off="ion-ios-plus-outline"
+           icon-on="ion-ios-plus"
+           ui-sref="app.reports.add">
+    <ion-nav-view name="reports-add"></ion-nav-view>
+  </ion-tab>-->
+
+  <!-- Settings Tab -->
+  <ion-tab title="{{'SETTINGS_TITLE' | translate}}"
+           icon-off="ion-ios-cog-outline"
+           icon-on="ion-ios-cog"
+           ui-sref="app.settings">
+    <ion-nav-view name="settings"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
