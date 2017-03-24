@@ -9815,9 +9815,12 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-.scroll {
-  height: 100%; }
-
-#map {
+#map-view {
   width: 100%;
-  height: 100%; }
+  height: 250px; }
+  #map-view #map-spinner svg {
+    display: block;
+    margin: 100px auto; }
+  #map-view #map {
+    width: 100%;
+    height: 100%; }

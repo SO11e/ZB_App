@@ -18,7 +18,7 @@ gulp.task('serve:before', ['watch']);
 
 gulp.task('default', ['sass', 'browserify']);
 
-gulp.task('sass', function (done) {
+gulp.task('sass', function(done) {
     gulp.src('./scss/ionic.app.scss')
         .pipe(sass())
         .on('error', sass.logError)
@@ -26,31 +26,31 @@ gulp.task('sass', function (done) {
         .pipe(minifyCss({
             keepSpecialComments: 0
         }))
-        .pipe(rename({extname: '.min.css'}))
+        .pipe(rename({ extname: '.min.css' }))
         .pipe(gulp.dest('./www/css/'))
         .on('end', done);
 });
 
-gulp.task('browserify', function () {
+gulp.task('browserify', function() {
     return browserify('./www/app.js', {debug: true})
         .bundle()
         .pipe(vinylSource('bundle.js'))
         .pipe(gulp.dest('./www'));
 });
 
-gulp.task('watch', ['sass', 'browserify'], function () {
+gulp.task('watch', ['sass', 'browserify'], function() {
     gulp.watch(paths.sass, ['sass']);
     gulp.watch(paths.browserify, ['browserify']);
 });
 
-gulp.task('install', ['git-check'], function () {
+gulp.task('install', ['git-check'], function() {
     return bower.commands.install()
-        .on('log', function (data) {
+        .on('log', function(data) {
             gutil.log('bower', gutil.colors.cyan(data.id), data.message);
         });
 });
 
-gulp.task('git-check', function (done) {
+gulp.task('git-check', function(done) {
     if (!sh.which('git')) {
         console.log(
             '  ' + gutil.colors.red('Git is not installed.'),

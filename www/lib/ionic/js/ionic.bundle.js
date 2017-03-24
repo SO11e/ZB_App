@@ -4036,7 +4036,7 @@ function keyboardPreventDefault(e) {
 /**
  * Polls window.innerHeight until it has updated to an expected value (or
  * sufficient time has passed) before calling the specified callback function.
- * Only necessary for non-fullscreen Android which sometimes reports multiple
+ * Only necessary for non-fullscreen Android which sometimes issues multiple
  * window.innerHeight values during interim layouts while it is resizing.
  *
  * On iOS, the window.innerHeight will already be updated, but we use the 50ms
@@ -4334,7 +4334,7 @@ ionic.Platform.ready(function() {
     });
   }*/
 
-  // Android sometimes reports bad innerHeight on window.load
+  // Android sometimes issues bad innerHeight on window.load
   // try it again in a lil bit to play it safe
   setTimeout(keyboardInitViewportHeight, 999);
 

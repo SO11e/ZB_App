@@ -1,0 +1,36 @@
+module.exports = function ($stateProvider) {
+    $stateProvider
+        .state('app.issues', {
+            url: '/issues',
+            views: {
+                'issues': {
+                    templateUrl: 'components/issues/templates/issues.html',
+                    controller: 'IssuesController'
+                }
+            }
+        })
+
+        .state('app.issues.add', {
+            url: '/add',
+            views: {
+                'map@app.issues.add': {
+                    templateUrl: 'components/map/templates/map.html',
+                    controller: 'MapController'
+                },
+                'issues@app': {
+                    templateUrl: 'components/issues/templates/issues.add.html',
+                    controller: 'IssueController'
+                }
+            }
+        })
+
+        .state('app.issues.details', {
+            url: '/:issueId',
+            views: {
+                'issues@app': {
+                    templateUrl: 'components/issues/templates/issues.details.html',
+                    controller: 'IssueController'
+                }
+            }
+        });
+};

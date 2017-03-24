@@ -1,0 +1,26 @@
+<ion-view view-title="{{'ISSUES_LIST_TITLE' | translate}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-ios-plus-outline"
+                ui-sref="app.issues.add"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="list">
+            <div class="item item-thumbnail-left item-icon-right item-text-wrap"
+                 ng-repeat="issue in issues"
+                 ui-sref="app.issues.details({issueId : issue.id})">
+                <img ng-src="{{issue.foto}}">
+                <h2>{{issue.straat}} {{issue.huisnummer}}</h2>
+                <p>{{issue.postcode}} {{issue.plaats}}</p>
+                <p ng-if="issue.datum_opgelost == null">
+                    <span translate="ISSUES_ADDED_AT_DATE"></span>
+                    {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+                </p>
+                <p ng-if="issue.datum_opgelost != null">
+                    <span translate="ISSUES_SOLVED_AT_DATE"></span>
+                    {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+                </p>
+                <i class="icon icon-accessory ion-ios-arrow-right "></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
