@@ -1,0 +1,21 @@
+{
+  "ISSUES_LIST_TITLE": "Meldingen",
+  "ISSUES_ADDED_AT_DATE": "Toegevoegd op",
+  "ISSUES_SOLVED_AT_DATE": "Opgelost op",
+
+  "ISSUES_ADD_TITLE": "Melding toevoegen",
+  "ISSUES_ADD_PLACEHOLDER_STREET": "Straat",
+  "ISSUES_ADD_PLACEHOLDER_POSTAL_CODE": "Postcode",
+  "ISSUES_ADD_PLACEHOLDER_CITY": "Plaats",
+  "ISSUES_ADD_PLACEHOLDER_EXPLANATION": "Toelichting",
+  "ISSUES_ADD_TAKE_NEW_PHOTO": "Nieuwe foto maken",
+  "ISSUES_ADD_SELECT_EXCISING_PHOTO": "Eigen foto toevoegen",
+  "ISSUES_ADD_REMOVE_PHOTO": "Foto verwijderen",
+  "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
+
+  "SETTINGS_TITLE": "Instellingen",
+  "SETTINGS_REGION_DIVIDER": "Regio",
+  "SETTINGS_LANGUAGE_DIVIDER": "Taal",
+  "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
+  "SETTINGS_LANGUAGE_ENGLISH": "Engels"
+}

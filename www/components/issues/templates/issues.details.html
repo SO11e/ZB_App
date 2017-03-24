@@ -1,0 +1,35 @@
+<ion-view view-title="{{issue.straat}} {{issue.huisnummer}}">
+    <ion-content class="padding">
+        <div class="card">
+            <div class="item item-image">
+                <img src="{{issue.foto}}"/>
+            </div>
+        </div>
+        <div class="list list-inset">
+            <div class="item">
+                {{issue.straat}} {{issue.huisnummer}}
+            </div>
+            <div class="item">
+                {{issue.postcode}} {{issue.plaats}}
+            </div>
+            <div class="item item-text-wrap">
+                {{issue.toelichting}}
+            </div>
+        </div>
+        <div class="list list-inset">
+            <div class="item" ng-if="issue.datum_opgelost == null">
+                <span translate="ISSUES_ADDED_AT_DATE"></span>
+                {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+            </div>
+            <div class="item" ng-if="issue.datum_opgelost != null">
+                <span translate="ISSUES_SOLVED_AT_DATE"></span>
+                {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-image">
+                <img src="img/kaart.png"/>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
