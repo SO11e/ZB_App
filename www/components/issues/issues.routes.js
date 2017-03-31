@@ -14,8 +14,8 @@ module.exports = function ($stateProvider) {
             url: '/add',
             views: {
                 'map@app.issues.add': {
-                    templateUrl: 'components/map/templates/map.html',
-                    controller: 'MapController'
+                    templateUrl: 'components/map/templates/issue.map.html',
+                    controller: 'IssueMapController'
                 },
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.add.html',

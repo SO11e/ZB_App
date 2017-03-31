@@ -1,5 +1,5 @@
 var mapModule = angular.module('zonnebloem.map', []);
 
-mapModule.controller("MapController", require("./controllers/map.controller"));
+mapModule.controller("IssueMapController", require("./controllers/issue.map.controller.js"));
 
 module.exports = mapModule;
