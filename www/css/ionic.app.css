@@ -9825,13 +9825,11 @@ a.button {
     width: 100%;
     height: 100%; }
 
-#map-button-bar {
-  width: 100%;
-  height: 10%; }
-
-#map-view {
-  width: 100%;
-  height: 90%; }
-  #map-view #map {
+#map-view .scroll {
+  height: 100%; }
+  #map-view .scroll #map-spinner svg {
+    display: block;
+    margin: 50% auto; }
+  #map-view .scroll #map {
     width: 100%;
     height: 100%; }
