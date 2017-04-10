@@ -9,16 +9,13 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup, IssuesFacto
     };
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-        // showMap(position.coords.latitude, position.coords.longitude);
-        showMap(51.58307, 4.7769505);
+        showMap(position.coords.latitude, position.coords.longitude);
     }, function(error){
         // Show Could not get location alert dialog
         var alertPopup = $ionicPopup.alert({
             title: 'Geen locatie',
             template: 'We kunnen helaas uw huidige locatie niet ophalen'
         });
-
-        showMap(51.58307, 4.7769505);
     });
 
 

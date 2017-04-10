@@ -15,8 +15,6 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
             title: 'Geen locatie',
             template: 'We kunnen helaas uw huidige locatie niet ophalen'
         });
-
-        showMap(51.72512, 5.30323);
     });
 
 
