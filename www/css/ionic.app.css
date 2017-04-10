@@ -9824,3 +9824,12 @@ a.button {
   #issue-map-view #map {
     width: 100%;
     height: 100%; }
+
+#map-view .scroll {
+  height: 100%; }
+  #map-view .scroll #map-spinner svg {
+    display: block;
+    margin: 50% auto; }
+  #map-view .scroll #map {
+    width: 100%;
+    height: 100%; }

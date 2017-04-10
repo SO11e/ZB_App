@@ -1,12 +1,12 @@
-module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
+module.exports = function ($scope, $cordovaGeolocation, $ionicPopup, IssuesFactory) {
+
+    var issues = IssuesFactory.getIssues();
 
     // Google Maps options
     var options = {
         timeout: 10000,
-        enableHighAccuracy: true,
-        componentRestrictions: {country: "us"}
+        enableHighAccuracy: true
     };
-
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position){
         showMap(position.coords.latitude, position.coords.longitude);
@@ -16,8 +16,6 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
             title: 'Geen locatie',
             template: 'We kunnen helaas uw huidige locatie niet ophalen'
         });
-
-        showMap(51.72512, 5.30323);
     });
 
 
@@ -26,7 +24,7 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
 
         // Map options
         var mapOptions = {
-            zoom: 15,
+            zoom: 12,
             center: latLng,
             disableDefaultUI: true
         };
@@ -40,20 +38,29 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 
             $scope.hideSpinner = true;
+            for(var i = 0; i < issues.length; i++){
+                var coordinates = new google.maps.LatLng(issues[i].latitude, issues[i].longitude);
+                var marker = new google.maps.Marker({
+                    map: $scope.map,
+                    animation: google.maps.Animation.DROP,
+                    position: coordinates
+                });
 
-            var marker = new google.maps.Marker({
-                map: $scope.map,
-                animation: google.maps.Animation.DROP,
-                position: latLng
-            });
+                var infoWindow = new google.maps.InfoWindow();
+                var content =   '<img src="' + issues[i].foto + '" width="100"/>' +
+                                '<br>' + issues[i].toelichting +
+                                '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> '
+                google.maps.event.addListener(marker,'click', (function(marker,content,infoWindow){
+                    return function() {
+                        infoWindow.setContent(content);
+                        infoWindow.open(map,marker);
+                    };
+                })(marker,content,infoWindow));
 
-            var infoWindow = new google.maps.InfoWindow({
-                content: "Dit is een melding!"
-            });
-
-            google.maps.event.addListener(marker, 'click', function () {
-                infoWindow.open($scope.map, marker);
-            });
+                google.maps.event.addListener($scope.map, 'click', function(event){
+                    console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
+                });
+            }
 
         });
     }
