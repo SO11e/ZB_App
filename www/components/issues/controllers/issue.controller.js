@@ -6,11 +6,5 @@ module.exports = function ($scope, $state, $stateParams, IssuesFactory) {
         $scope.report = report;
     });*/
 
-    $scope.addPhoto = function () {
-        $scope.showPhoto = true;
-    };
 
-    $scope.removePhoto = function () {
-        $scope.showPhoto = false;
-    };
 };
