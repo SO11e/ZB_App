@@ -14,8 +14,18 @@
   "ISSUES_ADD_SAVE_ISSUE": "Save issue",
 
   "SETTINGS_TITLE": "Settings",
+  "SETTINGS_LOGIN_BUTTON": "Login",
+  "SETTINGS_LOGOUT_BUTTON": "Logout",
   "SETTINGS_REGION_DIVIDER": "Region",
   "SETTINGS_LANGUAGE_DIVIDER": "Language",
   "SETTINGS_LANGUAGE_DUTCH": "Dutch",
-  "SETTINGS_LANGUAGE_ENGLISH": "English"
+  "SETTINGS_LANGUAGE_ENGLISH": "English",
+
+  "MAP_TITLE": "Map",
+
+  "LOGIN_EMAIL_PLACEHOLDER": "Email address",
+  "LOGIN_PASSWORD_PLACEHOLDER": "Password",
+  "LOGIN_ERROR_TITLE": "Error while login in",
+  "LOGIN_ERROR_EXPLANATION": "The combination of the given email address and password is unknown.",
+  "LOGIN_ERROR_ACCEPT": "OK. Try again."
 }

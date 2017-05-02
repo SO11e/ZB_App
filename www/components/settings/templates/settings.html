@@ -15,5 +15,8 @@
     <div class="item"
          translate="SETTINGS_LANGUAGE_ENGLISH"
          ng-click="switchLanguage('en')"></div>
+
+    <ui-view name="logout"
+             ng-if="token"></ui-view>
   </ion-content>
 </ion-view>

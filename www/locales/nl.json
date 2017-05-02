@@ -14,10 +14,18 @@
   "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
 
   "SETTINGS_TITLE": "Instellingen",
+  "SETTINGS_LOGIN_BUTTON": "Inloggen",
+  "SETTINGS_LOGOUT_BUTTON": "Uitloggen",
   "SETTINGS_REGION_DIVIDER": "Regio",
   "SETTINGS_LANGUAGE_DIVIDER": "Taal",
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
 
-  "MAP_TITLE": "Kaart"
+  "MAP_TITLE": "Kaart",
+
+  "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
+  "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",
+  "LOGIN_ERROR_TITLE": "Fout bij het inloggen",
+  "LOGIN_ERROR_EXPLANATION": "De combinatie van het ingegeven e-mailadres en wachtwoord is niet bekend.",
+  "LOGIN_ERROR_ACCEPT": "Oké. Ik probeer het opnieuw."
 }
