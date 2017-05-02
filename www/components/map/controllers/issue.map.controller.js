@@ -6,6 +6,8 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         enableHighAccuracy: true
     };
 
+    console.log("test3");
+
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position){
         showMap(position.coords.latitude, position.coords.longitude);
@@ -15,6 +17,7 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
             title: 'Geen locatie',
             template: 'We kunnen helaas uw huidige locatie niet ophalen'
         });
+        //TODO promt voor het aanzetten van locatie service
     });
 
 
@@ -29,7 +32,15 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         };
 
         // Map element
-        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        $scope.map = map;
+
+        console.log("test2");
+
+        // Variables needed to get the address
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+        getCurrentAddress(geocoder, map, infowindow, latLng);
 
         // Google Maps
         // Wait until the map is loaded
@@ -53,5 +64,32 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
             });
 
         });
+
+
+
     }
+
+    function getCurrentAddress(geocoder, map, infowindow, latLng) {
+        console.log("test1");
+        console.log(latLng);
+        geocoder.geocode({'location': latLng}, function (results, status) {
+            if (status === 'OK') {
+                if (results[1]) {
+                    map.setZoom(11);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: map
+                    });
+                    infowindow.setContent(results[1].formatted_address);
+                    infowindow.open(map, marker);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    // console.log("test");
 };
