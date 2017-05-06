@@ -3,8 +3,7 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
     // Google Maps options
     var options = {
         timeout: 10000,
-        enableHighAccuracy: true,
-        componentRestrictions: {country: "us"}
+        enableHighAccuracy: true
     };
 
     // Sets map to current location
@@ -16,8 +15,6 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
             title: 'Geen locatie',
             template: 'We kunnen helaas uw huidige locatie niet ophalen'
         });
-
-        showMap(51.72512, 5.30323);
     });
 
 

@@ -1,16 +1,7 @@
-<ion-view view-title="{{'MAP_TITLE' | translate}}">
-    <ion-nav-buttons side="right">
-        <button class="button button-icon ion-ios-plus-outline"
-                ui-sref="app.issues.add"></button>
-    </ion-nav-buttons>
+<ion-view view-title="{{'MAP_TITLE' | translate}}" id="map-view">
     <ion-content>
-        <div id="map-button-bar">
-
-        </div>
-        <div id="map-view">
-            <div id="map" data-tap-disabled="true">
-                <ion-spinner id="map-spinner" ng-hide="hideSpinner"></ion-spinner>
-            </div>
+        <div id="map" data-tap-disabled="true">
+            <ion-spinner id="map-spinner" ng-hide="hideSpinner"></ion-spinner>
         </div>
     </ion-content>
 </ion-view>
