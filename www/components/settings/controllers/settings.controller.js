@@ -5,7 +5,6 @@ module.exports = function ($scope, $translate, SettingsFactory) {
     });
 
     $scope.switchLanguage = function (language) {
-        localStorage.setItem("lang", language)
         $translate.use(language);
     };
 

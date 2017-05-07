@@ -12,8 +12,7 @@ module.exports = function ($translateProvider) {
             'en_US': 'en',
             'en_UK': 'en'
         })
-        .preferredLanguage(localStorage.lang)
+        .preferredLanguage('nl')
         .fallbackLanguage('nl')
-        .determinePreferredLanguage()
         .useSanitizeValueStrategy('escapeParameters')
 };

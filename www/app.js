@@ -6,6 +6,7 @@ require('./components/settings/settings.module');
 angular.module('zonnebloem', [
     'ionic',
     'ngCordova',
+	'ngStorage',
     'pascalprecht.translate',
     'zonnebloem.main',
     'zonnebloem.map',

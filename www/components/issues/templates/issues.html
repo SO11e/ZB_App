@@ -7,17 +7,18 @@
         <div class="list">
             <div class="item item-thumbnail-left item-icon-right item-text-wrap"
                  ng-repeat="issue in issues"
-                 ui-sref="app.issues.details({issueId : issue.id})">
-                <img ng-src="{{issue.foto}}">
-                <h2>{{issue.straat}} {{issue.huisnummer}}</h2>
-                <p>{{issue.postcode}} {{issue.plaats}}</p>
-                <p ng-if="issue.datum_opgelost == null">
+                 ui-sref="app.issues.details({ issueId : issue._id })">
+                <img ng-src="{{ issue.photo }}">
+                <!-- <h2>{{ issue.streetName }} {{ issue.houseNumber }}</h2>
+                <p>{{ issue.postalCode }} {{ issue.city }}</p> -->
+				<p>{{ issue.description }}</p>
+                <p ng-if="issue.dateCreated">
                     <span translate="ISSUES_ADDED_AT_DATE"></span>
-                    {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+                    {{issue.dateCreated | date : 'dd-MM-yyyy'}}
                 </p>
-                <p ng-if="issue.datum_opgelost != null">
+                <p ng-if="issue.dateResolved">
                     <span translate="ISSUES_SOLVED_AT_DATE"></span>
-                    {{issue.datum_gemeld | date : 'dd-MM-yyyy'}}
+                    {{issue.dateResolved | date : 'dd-MM-yyyy'}}
                 </p>
                 <i class="icon icon-accessory ion-ios-arrow-right "></i>
             </div>
