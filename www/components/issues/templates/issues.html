@@ -9,8 +9,8 @@
                  ng-repeat="issue in issues"
                  ui-sref="app.issues.details({ issueId : issue._id })">
                 <img ng-src="{{ issue.photo }}">
-                <!-- <h2>{{ issue.streetName }} {{ issue.houseNumber }}</h2>
-                <p>{{ issue.postalCode }} {{ issue.city }}</p> -->
+                <h2>{{ issue.streetName }} {{ issue.houseNumber }}</h2>
+                <p>{{ issue.postalCode }} {{ issue.place }}</p>
 				<p>{{ issue.description }}</p>
                 <p ng-if="issue.dateCreated">
                     <span translate="ISSUES_ADDED_AT_DATE"></span>
