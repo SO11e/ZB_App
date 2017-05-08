@@ -1,4 +1,12 @@
-module.exports = function ($scope, $state, $stateParams, IssuesFactory, $cordovaCamera) {
+module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFactory, $cordovaCamera) {
+
+    console.log('issueAddController');
+    $scope.$on('addressLoadedEvent', function (event, data) {
+        console.log('addressLoadedEvent');
+        $scope.address = data.address;
+        $scope.city = data.city;
+        console.log(data); // 'Data to send'
+    });
 
     $scope.addPhoto = function () {
         document.addEventListener("deviceready", function () {
@@ -24,7 +32,7 @@ module.exports = function ($scope, $state, $stateParams, IssuesFactory, $cordova
             });
 
         }, false);
-        console.log('test');
+        console.log('addFoto');
 
         //$scope.showPhoto = true;
     };

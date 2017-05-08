@@ -1,12 +1,12 @@
-module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
+module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup) {
 
-    // Google Maps options
+     // Google Maps options
     var options = {
         timeout: 10000,
         enableHighAccuracy: true
     };
 
-    console.log("test3");
+
 
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -15,7 +15,7 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         // Show Could not get location alert dialog
         var alertPopup = $ionicPopup.alert({
             title: 'Geen locatie',
-            template: 'We kunnen helaas uw huidige locatie niet ophalen'
+            template: 'We kunnen helaas uw huidige locatie niet ophalen. Zet uw locatie service aan.'
         });
         //TODO promt voor het aanzetten van locatie service
     });
@@ -34,8 +34,6 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         // Map element
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
         $scope.map = map;
-
-        console.log("test2");
 
         // Variables needed to get the address
         var geocoder = new google.maps.Geocoder;
@@ -70,26 +68,39 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
     }
 
     function getCurrentAddress(geocoder, map, infowindow, latLng) {
-        console.log("test1");
-        console.log(latLng);
+        console.log("Getting current address with latLng");
+        console.log(latLng)
+
+
+
         geocoder.geocode({'location': latLng}, function (results, status) {
+            console.log(status);
+            console.log(results);
             if (status === 'OK') {
-                if (results[1]) {
+                if (results[0]) {
                     map.setZoom(11);
                     var marker = new google.maps.Marker({
                         position: latLng,
                         map: map
                     });
-                    infowindow.setContent(results[1].formatted_address);
+                    infowindow.setContent(results[0].formatted_address);
                     infowindow.open(map, marker);
+
+                    // Broadcast address loaded
+                    $rootScope.$broadcast('addressLoadedEvent', {
+                        address: results[0].address_components[1].long_name + ' ' + results[0].address_components[0].long_name,
+                        city: results[0].address_components[2].long_name
+                    });
+
+
                 } else {
-                    window.alert('No results found');
+                    window.alert('Geen adres gevonden.');
+                    console.log('No results found');
                 }
             } else {
-                window.alert('Geocoder failed due to: ' + status);
+                window.alert('Fout bij het ophalen van het adres: Raadpleeg de beheerder.');
+                console.log('Geocoder failed due to: ' + status);
             }
         });
     }
-
-    // console.log("test");
 };

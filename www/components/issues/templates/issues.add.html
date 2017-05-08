@@ -4,16 +4,10 @@
         <form>
             <ion-list>
                 <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}">
+                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}: {{address}}</span>
                 </label>
                 <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_POSTAL_CODE' | translate}}">
-                </label>
-                <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}">
+                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}: {{city}}</span>
                 </label>
                 <label class="item item-input">
                     <textarea placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_EXPLANATION' | translate}}"></textarea>
