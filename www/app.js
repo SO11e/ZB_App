@@ -1,4 +1,5 @@
 require('./components/main/main.module');
+require('./components/authorization/authorization.module');
 require('./components/map/map.module');
 require('./components/issues/issues.module.js');
 require('./components/settings/settings.module');
@@ -9,12 +10,13 @@ angular.module('zonnebloem', [
 	'ngStorage',
     'pascalprecht.translate',
     'zonnebloem.main',
+    'zonnebloem.authorization',
     'zonnebloem.map',
     'zonnebloem.issues',
     'zonnebloem.settings'
 ])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, $state, AuthorizationFactory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -26,6 +28,10 @@ angular.module('zonnebloem', [
 
             if (window.StatusBar) {
                 StatusBar.styleLightContent();
+            }
+
+            if (AuthorizationFactory.getAuthToken() === null || AuthorizationFactory.getAuthToken() === undefined) {
+                $state.go('app.login');
             }
         });
     });

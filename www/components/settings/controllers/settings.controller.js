@@ -1,8 +1,6 @@
-module.exports = function ($scope, $translate, SettingsFactory) {
+module.exports = function ($scope, $translate, AuthorizationFactory) {
 
-    SettingsFactory.getMe().then(function(user) {
-        $scope.user = user;
-    });
+    $scope.token = AuthorizationFactory.getAuthToken();
 
     $scope.switchLanguage = function (language) {
         $translate.use(language);

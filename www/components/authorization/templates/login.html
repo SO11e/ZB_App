@@ -1,0 +1,16 @@
+<ion-view view-title="Login">
+    <ion-content>
+        <form name="loginForm"
+              ng-submit="login()">
+            <div class="list">
+                <label class="item item-input">
+                    <input name="email" type="text" placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}" ng-model="credentials.email" required>
+                </label>
+                <label class="item item-input">
+                    <input name="password" type="password" placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}" ng-model="credentials.password" required>
+                </label>
+                <button type="submit" class="button button-full button-balanced" translate="SETTINGS_LOGIN_BUTTON"></button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

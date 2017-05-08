@@ -6,7 +6,11 @@ module.exports = function ($stateProvider) {
         'settings': {
           templateUrl: 'components/settings/templates/settings.html',
           controller: 'SettingsController'
-        }
+        },
+          'logout@app.settings': {
+              templateUrl: 'components/authorization/templates/logout.html',
+              controller: 'LogoutController'
+          }
       }
     });
 };
