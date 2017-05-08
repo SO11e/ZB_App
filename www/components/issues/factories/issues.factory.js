@@ -10,8 +10,8 @@ module.exports = function () {
             foto: "img/locatie.png",
             datum_gemeld: "2017-02-20",
             datum_opgelost: null,
-            latitude: 51.573438,
-            longitude: 4.812773
+            latitude: 51.689298,
+            longitude: 5.287756
         },
         {
             id: 1,
@@ -23,8 +23,8 @@ module.exports = function () {
             foto: "img/chasseveld.png",
             datum_gemeld: "2017-01-04",
             datum_opgelost: "2017-02-15",
-            latitude: 51.588875,
-            longitude: 4.785663
+            latitude: 51.685944,
+            longitude: 5.290808
         }
     ];
 
