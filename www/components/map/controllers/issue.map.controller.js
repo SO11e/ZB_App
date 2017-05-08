@@ -1,4 +1,4 @@
-module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup) {
+module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
 
      // Google Maps options
     var options = {
@@ -26,7 +26,7 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
 
         // Map options
         var mapOptions = {
-            zoom: 15,
+            zoom: 9,
             center: latLng,
             disableDefaultUI: true
         };
@@ -62,23 +62,18 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
             });
 
         });
-
-
-
     }
 
     function getCurrentAddress(geocoder, map, infowindow, latLng) {
         console.log("Getting current address with latLng");
         console.log(latLng)
 
-
-
         geocoder.geocode({'location': latLng}, function (results, status) {
             console.log(status);
             console.log(results);
             if (status === 'OK') {
                 if (results[0]) {
-                    map.setZoom(11);
+                    map.setZoom(17);
                     var marker = new google.maps.Marker({
                         position: latLng,
                         map: map
@@ -87,7 +82,7 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
                     infowindow.open(map, marker);
 
                     // Broadcast address loaded
-                    $rootScope.$broadcast('addressLoadedEvent', {
+                    $scope.$broadcast('addressLoadedEvent', {
                         address: results[0].address_components[1].long_name + ' ' + results[0].address_components[0].long_name,
                         city: results[0].address_components[2].long_name
                     });

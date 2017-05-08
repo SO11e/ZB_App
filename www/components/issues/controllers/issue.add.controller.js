@@ -1,4 +1,4 @@
-module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFactory, $cordovaCamera) {
+module.exports = function ($scope, $state, $stateParams, IssuesFactory, $cordovaCamera) {
 
     console.log('issueAddController');
     $scope.$on('addressLoadedEvent', function (event, data) {
@@ -35,6 +35,11 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
         console.log('addFoto');
 
         //$scope.showPhoto = true;
+    };
+
+    $scope.saveIssue = function () {
+        console.log('saving issue');
+        IssuesFactory.
     };
 
     $scope.removePhoto = function () {
