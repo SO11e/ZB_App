@@ -9832,4 +9832,6 @@ a.button {
     margin: 50% auto; }
   #map-view .scroll #map {
     width: 100%;
-    height: 100%; }
+    height: 90%; }
+  #map-view .scroll .buttons {
+    text-align: center; }
