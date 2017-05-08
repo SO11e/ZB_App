@@ -1,5 +1,7 @@
 module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) {
 
+    $scope.token = AuthorizationFactory.getAuthToken();
+
     $scope.logout = function () {
             AuthorizationFactory.clearUser();
             AuthorizationFactory.clearAuthToken();
