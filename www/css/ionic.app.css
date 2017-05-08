@@ -9833,3 +9833,6 @@ a.button {
   #map-view .scroll #map {
     width: 100%;
     height: 100%; }
+
+.tabs-hide .tabs {
+  display: none; }

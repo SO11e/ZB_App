@@ -1,5 +1,9 @@
 module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) {
 
+    $scope.$on('$ionicView.beforeEnter', function(){
+        $scope.$root.hideTabs = "tabs-hide";
+    });
+
     $scope.credentials = {
         "email": "",
         "password": ""
@@ -7,7 +11,6 @@ module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) 
 
     $scope.login = function () {
         AuthorizationFactory.login($scope.credentials).then(function (data) {
-            console.log(data);
             if (data) {
                 AuthorizationFactory.setAuthToken(data);
 
@@ -17,6 +20,8 @@ module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) 
                 $ionicHistory.nextViewOptions({
                     historyRoot: true
                 });
+
+                $scope.$root.hideTabs = "";
             }
         });
     };
