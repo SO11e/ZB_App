@@ -32,9 +32,6 @@ angular.module('zonnebloem', [
 
             if (AuthorizationFactory.getAuthToken() === null || AuthorizationFactory.getAuthToken() === undefined) {
                 $state.go('app.login');
-                console.log("User not logged in");
-            } else {
-                console.log("User logged in");
             }
         });
     });
