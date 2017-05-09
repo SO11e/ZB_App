@@ -1,9 +1,9 @@
-module.exports = function ($http, AuthorizationFactory) {
+module.exports = function (hostname, $http, AuthorizationFactory) {
 
     var token = AuthorizationFactory.getAuthToken();
 
     function getIssues() {
-        return $http.get("https://zb-api.herokuapp.com/issues", { headers: { 'bearer': token } } ).then(function (response) {
+        return $http.get(hostname + "/issues", { headers: { 'bearer': token } } ).then(function (response) {
 			
             //TEMP
 			for (var i = 0; i < response.data.data.length; i++) {
