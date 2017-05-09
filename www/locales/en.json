@@ -16,8 +16,10 @@
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",
   "SETTINGS_LOGOUT_BUTTON": "Logout",
-  "SETTINGS_REGION_DIVIDER": "Region",
-  "SETTINGS_LANGUAGE_DIVIDER": "Language",
+  "SETTINGS_GREETING_DIVIDER": "Hello, ",
+  "SETTINGS_EXPLANATION" : "Here you can see to which region you have been assigned. Furthermore you can change the language of the application.",
+  "SETTINGS_REGION_DIVIDER": "Your region",
+  "SETTINGS_LANGUAGE_DIVIDER": "Choose your language",
   "SETTINGS_LANGUAGE_DUTCH": "Dutch",
   "SETTINGS_LANGUAGE_ENGLISH": "English",
 

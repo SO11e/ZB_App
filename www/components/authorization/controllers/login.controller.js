@@ -1,7 +1,7 @@
 module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) {
 
     $scope.$on('$ionicView.beforeEnter', function(){
-        $scope.$root.hideTabs = "tabs-hide";
+        $scope.$root.hideTabs = "login-header";
         $scope.credentials = {
             "email": "",
             "password": ""

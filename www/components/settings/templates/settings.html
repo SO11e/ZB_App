@@ -1,5 +1,12 @@
 <ion-view title="{{'SETTINGS_TITLE' | translate}}">
   <ion-content>
+    <div class="item item-divider">
+         {{'SETTINGS_GREETING_DIVIDER' | translate}} {{ user.email }}
+         </div>
+    <div class="item item-text-wrap">
+      {{'SETTINGS_EXPLANATION' | translate}}
+    </div>
+
     <div class="item item-divider"
          translate="SETTINGS_REGION_DIVIDER"></div>
     <div class="item">
@@ -8,12 +15,15 @@
 
     <div class="item item-divider"
          translate="SETTINGS_LANGUAGE_DIVIDER"></div>
-    <div class="item"
-         translate="SETTINGS_LANGUAGE_DUTCH"
-         ng-click="switchLanguage('nl')"></div>
-    <div class="item"
-         translate="SETTINGS_LANGUAGE_ENGLISH"
-         ng-click="switchLanguage('en')"></div>
+    <div class="item item-icon-right"
+         ng-click="switchLanguage('nl')">
+         {{'SETTINGS_LANGUAGE_DUTCH' | translate}}
+         <i ng-if="lang==='nl'" class="icon ion-ios-checkmark-empty"></i>
+    </div>
+    <div class="item item-icon-right"
+         ng-click="switchLanguage('en')">{{'SETTINGS_LANGUAGE_ENGLISH' | translate}}
+         <i ng-if="lang==='en'" class="icon ion-ios-checkmark-empty"></i>
+    </div>
 
     <ui-view name="logout"></ui-view>
   </ion-content>
