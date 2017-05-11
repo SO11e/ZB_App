@@ -1,4 +1,4 @@
-module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
+module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup) {
 
      // Google Maps options
     var options = {
@@ -38,7 +38,7 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         // Variables needed to get the address
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
-        getCurrentAddress(geocoder, map, infowindow, latLng);
+        getCurrentAddress(geocoder, map, infowindow, latLng, lat, lng);
 
         // Google Maps
         // Wait until the map is loaded
@@ -64,9 +64,9 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         });
     }
 
-    function getCurrentAddress(geocoder, map, infowindow, latLng) {
+    function getCurrentAddress(geocoder, map, infowindow, latLng, lat, lng) {
         console.log("Getting current address with latLng");
-        console.log(latLng)
+        console.log(latLng);
 
         geocoder.geocode({'location': latLng}, function (results, status) {
             console.log(status);
@@ -81,10 +81,83 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
                     infowindow.setContent(results[0].formatted_address);
                     infowindow.open(map, marker);
 
+                    // Getting street
+                    var street = "";
+                    var streetFound = false;
+                    for (var s = 0; s < results[0].address_components[0].types.length; s++) {
+                        if (results[0].address_components[0].types[s] === "route") {
+                            streetFound = true;
+                            break;
+                        }
+                    }
+                    if(streetFound){
+                        street = results[0].address_components[0].long_name;
+                    } else {
+                        street = "Niet gevonden";
+                    }
+
+                    // Getting house number
+                    // TODO:: verder het type naar de goede
+                    var houseNumber = "";
+                    var houseNumberFound = false;
+                    for (var h = 0; h < results[0].address_components[0].types.length; h++) {
+                        if (results[0].address_components[0].types[h] === "number") {
+                            houseNumberFound = true;
+                            break;
+                        }
+                    }
+                    if(houseNumberFound){
+                        houseNumber = results[0].address_components[0].long_name;
+                    } else {
+                        houseNumber = "Niet gevonden";
+                    }
+
+                    // Getting city
+                    var city = "";
+                    var cityFound = false;
+                    for (var c = 0; c < results[0].address_components[2].types.length; c++) {
+                        if (results[0].address_components[2].types[c] === "locality" || results[0].address_components[2].types[c] === "political") {
+                            cityFound = true;
+                            break;
+                        }
+                    }
+                    if(cityFound){
+                        city = results[0].address_components[2].long_name;
+                    } else {
+                        city = "Niet gevonden";
+                    }
+
+                    // Getting postal code
+                    var postalCode = "";
+                    var postalCodeFound = false;
+                    for (var p = 0; p < results[0].address_components[5].types.length; p++) {
+                        if (results[0].address_components[5].types[p] === "postal_code" || results[0].address_components[5].types[p] === "postal_code_prefix") {
+                            postalCodeFound = true;
+                            break;
+                        }
+                    }
+                    if(postalCodeFound){
+                        postalCode = results[0].address_components[5].long_name;
+                    } else {
+                        postalCode = "Niet gevonden";
+                    }
+
+                    console.log('Broadcasting');
+                    console.log('Street: ' + street);
+                    console.log('House Number: ' + houseNumber);
+                    console.log('City: ' + city);
+                    console.log('PostalCode: ' + postalCode);
+                    console.log('Lng: ' + lng);
+                    console.log('Lat: ' + lat);
+
                     // Broadcast address loaded
-                    $scope.$broadcast('addressLoadedEvent', {
-                        address: results[0].address_components[1].long_name + ' ' + results[0].address_components[0].long_name,
-                        city: results[0].address_components[2].long_name
+                    $rootScope.$broadcast('addressLoadedEvent', {
+                        street: street,
+                        houseNumber: houseNumber,
+                        city: city,
+                        postalCode: postalCode,
+                        lng: lng,
+                        lat: lat
                     });
 
 

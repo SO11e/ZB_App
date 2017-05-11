@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function ($http, $ionicPopup, $translate) {
     var issues = [
         {
             id: 0,
@@ -49,8 +49,57 @@ module.exports = function () {
         });*/
     }
 
+    var token = '';
+    function postIssue(issue) {
+        if(issue.street === '' || issue.city === '' || issue.postalCode === '' || issue.description === '' || issue.lat === '' || issue.lng === ''){
+            $ionicPopup.alert({
+                title: $translate.instant('ISSUE_POST_ERROR_TITLE'),
+                template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
+                okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
+            });
+        } else {
+            var req = {
+                method: 'POST',
+                url: 'https://zb-api.herokuapp.com/issues',
+                header: {
+                    'Content-Type': 'application/json',
+                    'bearer': token
+                },
+                data: {
+                    'streetName': issue.street,
+                    'place': issue.city,
+                    'postalCode': issue.postalCode,
+                    'description': issue.description,
+                    'latitude': issue.lat,
+                    'longitude': issue.lng
+                }
+            };
+            console.log(req);
+
+            return $http(req)
+                .then(function (response) {
+                    console.log(response);
+
+                    $ionicPopup.alert({
+                        title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
+                        template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
+                        okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
+                    });
+                }, function (error) {
+                    console.log(error);
+
+                    $ionicPopup.alert({
+                        title: $translate.instant('ISSUE_POST_ERROR_TITLE'),
+                        template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
+                        okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
+                    });
+                });
+        }
+    }
+
     return {
         getIssues: getIssues,
-        getIssue: getIssue
+        getIssue: getIssue,
+        postIssue: postIssue
     };
 };
