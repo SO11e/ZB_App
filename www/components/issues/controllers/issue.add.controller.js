@@ -37,11 +37,6 @@ module.exports = function ($scope, $state, $stateParams, IssuesFactory, $cordova
         //$scope.showPhoto = true;
     };
 
-    $scope.saveIssue = function () {
-        console.log('saving issue');
-        IssuesFactory.
-    };
-
     $scope.removePhoto = function () {
         $scope.showPhoto = false;
     };
