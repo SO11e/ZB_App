@@ -1,5 +1,4 @@
 module.exports = function (hostname, $http, AuthorizationFactory) {
-
     var token = AuthorizationFactory.getAuthToken();
 
     function getIssues() {
