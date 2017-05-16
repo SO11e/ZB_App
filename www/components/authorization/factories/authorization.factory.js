@@ -3,6 +3,7 @@ module.exports = function (hostname, $http, $localStorage, $ionicPopup, $transla
     function login(credentials) {
         return $http.post(hostname + "/login", JSON.stringify(credentials), {headers: {'Content-Type': 'application/json'}})
             .then(function (response) {
+                setUser(response.data.user);
                 return response.data;
             }, function (error) {
                 // console.error(error.status);
