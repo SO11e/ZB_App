@@ -7,10 +7,10 @@ module.exports = function ($stateProvider) {
           templateUrl: 'components/settings/templates/settings.html',
           controller: 'SettingsController'
         },
-          'logout@app.settings': {
-              templateUrl: 'components/authorization/templates/logout.html',
-              controller: 'LogoutController'
-          }
+        'logout@app.settings': {
+            templateUrl: 'components/authorization/templates/logout.html',
+            controller: 'LogoutController'
+        }
       }
     });
 };

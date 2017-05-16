@@ -16,8 +16,10 @@
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",
   "SETTINGS_LOGOUT_BUTTON": "Uitloggen",
-  "SETTINGS_REGION_DIVIDER": "Regio",
-  "SETTINGS_LANGUAGE_DIVIDER": "Taal",
+  "SETTINGS_GREETING_DIVIDER": "Hallo, ",
+  "SETTINGS_EXPLANATION" : "Hier kunt u zien in welke regio u bent ingedeeld. Daarnaast kunt u hier de taal waarin de applicatie weergegeven wordt wijzigen.",
+  "SETTINGS_REGION_DIVIDER": "Uw regio",
+  "SETTINGS_LANGUAGE_DIVIDER": "Kies uw taal",
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
 
