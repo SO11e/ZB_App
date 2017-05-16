@@ -14,6 +14,5 @@ module.exports = function ($translateProvider) {
         })
         .preferredLanguage('nl')
         .fallbackLanguage('nl')
-        .determinePreferredLanguage()
         .useSanitizeValueStrategy('escapeParameters')
 };
