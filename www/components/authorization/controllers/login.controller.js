@@ -12,6 +12,7 @@ module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) 
         AuthorizationFactory.login($scope.credentials).then(function (data) {
             if (data) {
                 AuthorizationFactory.setAuthToken(data.token);
+                AuthorizationFactory.setUser(data.user);
 
                 $state.go('app.settings');
                 $ionicHistory.clearHistory();

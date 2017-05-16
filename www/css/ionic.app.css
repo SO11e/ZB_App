@@ -9835,3 +9835,9 @@ a.button {
     height: 90%; }
   #map-view .scroll .buttons {
     text-align: center; }
+
+.login-header .tabs {
+  display: none; }
+
+.login-content {
+  top: 45px; }
