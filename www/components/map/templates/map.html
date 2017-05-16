@@ -3,10 +3,14 @@
         <div id="map" data-tap-disabled="true">
             <ion-spinner id="map-spinner" ng-hide="hideSpinner"></ion-spinner>
         </div>
-        <div class="buttons">
-            <button id="route-button" class="button button-positive" ng-click="walkRoute()">
-                Start route
-            </button>
-        </div>
     </ion-content>
+    <ion-footer-bar>
+        <button id="route-button" class="button button-positive map-button" ng-click="walkRoute()">
+            {{ 'MAP_ROUTE_START' | translate }}
+        </button>
+
+        <button id="issue-button" class="button button-balanced map-button" ng-click="createIssue()">
+            {{ 'ISSUES_ADD_TITLE' | translate }}
+        </button>
+    </ion-footer-bar>
 </ion-view>

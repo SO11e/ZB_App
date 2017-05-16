@@ -25,6 +25,7 @@
   "SETTINGS_LANGUAGE_ENGLISH": "English",
 
   "MAP_TITLE": "Map",
+  "MAP_ROUTE_START": "Start Route",
 
   "LOGIN_EMAIL_PLACEHOLDER": "Email address",
   "LOGIN_PASSWORD_PLACEHOLDER": "Password",

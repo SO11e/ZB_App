@@ -25,6 +25,7 @@
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
 
   "MAP_TITLE": "Kaart",
+  "MAP_ROUTE_START": "Start Route",
 
   "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
   "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",

@@ -1,4 +1,4 @@
-module.exports = function ($scope, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory) {
+module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory) {
 
     var issues = IssuesFactory.getIssues();
     var routesWalked = RoutesWalkedFactory.getRoutesWalked();
@@ -93,6 +93,10 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup, IssuesFacto
             }
 
         });
+    }
+
+    $scope.createIssue = function() {
+        $state.go("app.map.addIssue");
     }
 
     $scope.walkRoute = function(){
