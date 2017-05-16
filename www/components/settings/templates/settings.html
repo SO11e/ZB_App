@@ -9,7 +9,10 @@
 
     <div class="item item-divider"
          translate="SETTINGS_REGION_DIVIDER"></div>
-    <div class="item">
+    <div class="item" ng-if="!user.region">
+      {{'SETTINGS_REGION_NO_REGION' | translate}}
+    </div>
+    <div class="item" ng-if="user.region">
       {{ user.region }}
     </div>
 
