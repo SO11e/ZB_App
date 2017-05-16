@@ -49,50 +49,23 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                 }}, { 
                     headers: { 
                         'bearer': token 
-                    }}).then(function (response) {
-                
-                console.log('API RESPONSE: ' + response.data.data);
-                return response.data.data;
+            }}).then(function (response) {
+                $ionicPopup.alert({
+                    title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
+                    template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
+                    okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
+                });
+
+                console.log('API RESPONSE: ' + response.data);
+                return response.data;
             }, function(error) {
+                $ionicPopup.alert({
+                    title: $translate.instant('ISSUE_POST_ERROR_TITLE'),
+                    template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
+                    okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
+                });
                 console.log('API ERROR: ' + error);
             });
-
-            // var req = {
-            //     method: 'POST',
-            //     url: 'https://zb-api.herokuapp.com/issues',
-            //     header: {
-            //         'Content-Type': 'application/json',
-            //         'bearer': token
-            //     },
-            //     data: {
-            //         'streetName': issue.street,
-            //         'place': issue.city,
-            //         'postalCode': issue.postalCode,
-            //         'description': issue.description,
-            //         'latitude': issue.lat,
-            //         'longitude': issue.lng
-            //     }
-            // };
-            // console.log(req);
-
-            // return $http(req)
-            //     .then(function (response) {
-            //         console.log(response);
-
-            //         $ionicPopup.alert({
-            //             title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
-            //             template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
-            //             okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
-            //         });
-            //     }, function (error) {
-            //         console.log(error);
-
-            //         $ionicPopup.alert({
-            //             title: $translate.instant('ISSUE_POST_ERROR_TITLE'),
-            //             template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
-            //             okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
-            //         });
-            //     });
         }
     }
 

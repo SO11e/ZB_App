@@ -81,70 +81,60 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
                     infowindow.setContent(results[0].formatted_address);
                     infowindow.open(map, marker);
 
+                    // variables for forLoops
+                    var i = 0;
+                    var o = 0;
+
                     // Getting street
                     var street = "";
                     var streetFound = false;
-                    for (var s = 0; s < results[0].address_components[0].types.length; s++) {
-                        if (results[0].address_components[0].types[s] === "route") {
-                            streetFound = true;
-                            break;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "route") {
+                                streetFound = true;
+                                street = results[0].address_components[o].long_name;
+                                break;
+                            }
                         }
                     }
-                    if(streetFound){
-                        street = results[0].address_components[0].long_name;
-                    } else {
+                    if(!streetFound){
                         street = "Niet gevonden";
-                    }
-
-                    // Getting house number
-                    // TODO:: verder het type naar de goede
-                    var houseNumber = "";
-                    var houseNumberFound = false;
-                    for (var h = 0; h < results[0].address_components[0].types.length; h++) {
-                        if (results[0].address_components[0].types[h] === "number") {
-                            houseNumberFound = true;
-                            break;
-                        }
-                    }
-                    if(houseNumberFound){
-                        houseNumber = results[0].address_components[0].long_name;
-                    } else {
-                        houseNumber = "Niet gevonden";
-                    }
+                    } 
 
                     // Getting city
                     var city = "";
                     var cityFound = false;
-                    for (var c = 0; c < results[0].address_components[2].types.length; c++) {
-                        if (results[0].address_components[2].types[c] === "locality" || results[0].address_components[2].types[c] === "political") {
-                            cityFound = true;
-                            break;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "locality") {
+                                cityFound = true;
+                                city = results[0].address_components[o].long_name;
+                                break;
+                            }
                         }
                     }
-                    if(cityFound){
-                        city = results[0].address_components[2].long_name;
-                    } else {
+                    if(!cityFound){
                         city = "Niet gevonden";
                     }
 
                     // Getting postal code
                     var postalCode = "";
                     var postalCodeFound = false;
-                    for (var p = 0; p < results[0].address_components[5].types.length; p++) {
-                        if (results[0].address_components[5].types[p] === "postal_code" || results[0].address_components[5].types[p] === "postal_code_prefix") {
-                            postalCodeFound = true;
-                            break;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "postal_code" || results[0].address_components[o].types[i] === "postal_code_prefix") {
+                                postalCodeFound = true;
+                                postalCode = results[0].address_components[o].long_name;
+                                break;
+                            }
                         }
                     }
-                    if(postalCodeFound){
-                        postalCode = results[0].address_components[5].long_name;
-                    } else {
+                    if(!postalCodeFound){
                         postalCode = "Niet gevonden";
                     }
 
-                    console.log('Broadcasting');
+                    console.log('Broadcasting addressLoadedEvent');
                     console.log('Street: ' + street);
-                    console.log('House Number: ' + houseNumber);
                     console.log('City: ' + city);
                     console.log('PostalCode: ' + postalCode);
                     console.log('Lng: ' + lng);
@@ -153,7 +143,6 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
                     // Broadcast address loaded
                     $rootScope.$broadcast('addressLoadedEvent', {
                         street: street,
-                        houseNumber: houseNumber,
                         city: city,
                         postalCode: postalCode,
                         lng: lng,
@@ -162,12 +151,16 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
 
 
                 } else {
-                    window.alert('Geen adres gevonden.');
-                    console.log('No results found');
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Geen adres gevonden.',
+                        template: 'We kunnen helaas uw huidige adres niet vinden. Raadpleeg a.u.b. de beeherder.'
+                    });
                 }
             } else {
-                window.alert('Fout bij het ophalen van het adres: Raadpleeg de beheerder.');
-                console.log('Geocoder failed due to: ' + status);
+                var errorPopup = $ionicPopup.alert({
+                    title: 'Fout bij het ophalen van het adres.',
+                    template: 'We kunnen helaas uw huidige adres niet vinden. Raadpleeg a.u.b. de beeherder.'
+                });
             }
         });
     }

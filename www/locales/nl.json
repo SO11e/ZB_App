@@ -14,6 +14,10 @@
   "ISSUES_ADD_REMOVE_PHOTO": "Foto verwijderen",
   "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
 
+  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Fout bij het ophalen van de foto.",
+  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het ophalen van de foto. Neem A.U.B. contact op met de beheerder.",
+  "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Oké.",
+
   "ISSUE_POST_SUCCESS_TITLE": "Melding opgeslagen",
   "ISSUE_POST_SUCCESS_EXPLANATION": "De melding is opgeslagen.",
   "ISSUE_POST_SUCCESS_ACCEPT": "Oké.",

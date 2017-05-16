@@ -14,6 +14,10 @@
   "ISSUES_ADD_REMOVE_PHOTO": "Remove photo",
   "ISSUES_ADD_SAVE_ISSUE": "Save issue",
 
+  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Error while retrieving the photo.",
+  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Fout bij het ophalen van de foto. Please contact the Administrator.",
+  "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Ok.",
+
   "ISSUE_POST_SUCCESS_TITLE": "Issue saved",
   "ISSUE_POST_SUCCESS_EXPLANATION": "The issue has been saved.",
   "ISSUE_POST_SUCCESS_ACCEPT": "Ok.",
