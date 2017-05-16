@@ -9,4 +9,18 @@ module.exports = function ($stateProvider) {
                 }
             }
         })
+
+        .state('app.map.addIssue', {
+            url: '/add',
+            views: {
+                'map@app.map.addIssue': {
+                    templateUrl: 'components/map/templates/issue.map.html',
+                    controller: 'IssueMapController'
+                },
+                'map@app': {
+                    templateUrl: 'components/issues/templates/issues.add.html',
+                    controller: 'IssueController'
+                }
+            }
+        })
 };

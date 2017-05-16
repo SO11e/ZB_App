@@ -14,7 +14,7 @@ module.exports = function ($state, $scope, $ionicHistory, AuthorizationFactory) 
                 AuthorizationFactory.setAuthToken(data.token);
                 AuthorizationFactory.setUser(data.user);
 
-                $state.go('app.settings');
+                $state.go('app.map');
                 $ionicHistory.clearHistory();
                 $ionicHistory.clearCache();
                 $ionicHistory.nextViewOptions({
