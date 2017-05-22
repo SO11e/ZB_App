@@ -7,14 +7,6 @@
 
 <ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-class="$root.hideTabs">
 
-  <!-- Reports Tab -->
-  <ion-tab title="{{'ISSUES_LIST_TITLE' | translate}}"
-           icon-off="ion-ios-list-outline"
-           icon-on="ion-ios-list"
-           ui-sref="app.issues">
-    <ion-nav-view name="issues"></ion-nav-view>
-  </ion-tab>
-
   <!-- Map Tab -->
   <ion-tab title="{{'MAP_TITLE' | translate}}"
            icon-off="ion-map"
@@ -23,6 +15,14 @@
     <ion-nav-view name="map"></ion-nav-view>
   </ion-tab>
 
+  <!-- Reports Tab -->
+  <ion-tab title="{{'ISSUES_LIST_TITLE' | translate}}"
+           icon-off="ion-ios-list-outline"
+           icon-on="ion-ios-list"
+           ui-sref="app.issues">
+    <ion-nav-view name="issues"></ion-nav-view>
+  </ion-tab>
+  
   <!-- Settings Tab -->
   <ion-tab title="{{'SETTINGS_TITLE' | translate}}"
            icon-off="ion-ios-cog-outline"
