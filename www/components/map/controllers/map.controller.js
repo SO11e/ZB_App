@@ -4,7 +4,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     var routesWalked = RoutesWalkedFactory.getRoutesWalked();
     var gpsEnabled = false;
     var timer = undefined;
-    var routeWalked = [];
+    var routeWalked = {};
     var dirService = new google.maps.DirectionsService();
 
     var test = true;
@@ -45,7 +45,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             center: latLng,
             disableDefaultUI: true
         };
-
         // Map element
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -64,22 +63,23 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
                 var infoWindow = new google.maps.InfoWindow();
                 var content =   '<img src="' + issues[i].foto + '" width="100"/>' +
-                                '<br>' + issues[i].toelichting +
-                                '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> '
+                    '<br>' + issues[i].toelichting +
+                    '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> ';
                 google.maps.event.addListener(marker,'click', (function(marker,content,infoWindow){
                     return function() {
                         infoWindow.setContent(content);
                         infoWindow.open(map,marker);
                     };
                 })(marker,content,infoWindow));
-
-                google.maps.event.addListener($scope.map, 'click', function(event){
-                    console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
-
-                    testLat = event.latLng.lat();
-                    testLng = event.latLng.lng();
-                });
             }
+
+            google.maps.event.addListener($scope.map, 'click', function(event){
+                console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
+
+                testLat = event.latLng.lat();
+                testLng = event.latLng.lng();
+            });
+            console.log(routesWalked);
 
             //Add routes walked
             for(var j = 0; j < routesWalked.length; j++){
@@ -97,13 +97,16 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
     $scope.createIssue = function() {
         $state.go("app.map.addIssue");
-    }
+    };
 
     $scope.walkRoute = function(){
-        if(typeof timer == 'undefined'){
+        if(typeof timer === 'undefined'){
             if(gpsEnabled){
-                if(typeof timer == 'undefined'){
+                if(typeof timer === 'undefined'){
                     console.log('start route');
+
+                    routeWalked = [];
+
                     timer = setInterval(updateRoute, 3000);
                     document.getElementById("route-button").innerHTML = "Stop route";
                 }
@@ -128,8 +131,9 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                     clearInterval(timer);
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
-
-                    routesWalked.push(routeWalked);
+                    RoutesWalkedFactory.addRouteWalked(routeWalked);
+                    //console.log(routesWalked);
+                    console.log(routeWalked);
                 }
                 else{
 
@@ -141,16 +145,18 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     function updateRoute(){
         if(test){
             if(routeWalked.length > 0){
-                if(measure(routeWalked[routeWalked.length-1].lat(), routeWalked[routeWalked.length-1].lng(), testLat, testLng) > 20){
-                    routeWalked.push(
-                        new google.maps.LatLng(testLat, testLng)
-                    );
+                if(measure(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude, testLat, testLng) > 20){
+                    routeWalked.push({
+                        latitude: testLat,
+                        longitude: testLng
+                    });
                 }
             }
             else{
-                routeWalked.push(
-                    new google.maps.LatLng(testLat, testLng)
-                );
+                routeWalked.push({
+                    latitude: testLat,
+                    longitude: testLng
+                });
             }
             var pos = new google.maps.LatLng(testLat, testLng);
 
@@ -158,7 +164,9 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             //update route
             if(routeWalked.length > 1){
-                renderRoute(routeWalked[routeWalked.length-2], routeWalked[routeWalked.length-1], 'blue');
+                var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
+                var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
+                renderRoute(origin, destination, 'blue');
             }
             console.log(routeWalked);
 
@@ -167,16 +175,18 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
         $cordovaGeolocation.getCurrentPosition(options).then(function(position){
             if(routeWalked.length > 0){
-                if(measure(routeWalked[routeWalked.length-1].lat(), routeWalked[routeWalked.length-1].lng(), position.coords.latitude, position.coords.longitude) > 20){
-                    routeWalked.push(
-                        new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                    );
+                if(measure(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude, position.coords.latitude, position.coords.longitude) > 20){
+                    routeWalked.push({
+                        latitude: testLat,
+                        longitude: testLng
+                    });
                 }
             }
             else{
-                routeWalked.push(
-                    new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                );
+                routeWalked.push({
+                    latitude: testLat,
+                    longitude: testLng
+                });
             }
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -184,7 +194,9 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             //update route
             if(routeWalked.length > 1){
-                renderRoute(routeWalked[routeWalked.length-2], routeWalked[routeWalked.length-1], 'blue');
+                var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
+                var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
+                renderRoute(origin, destination, 'blue');
             }
             console.log(routeWalked);
 
@@ -213,7 +225,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     }
 
     function renderRoute(origin, destination, color){
-        if(typeof color == 'undefined'){ color = 'green'; }
+        if(typeof color === 'undefined'){ color = 'green'; }
 
         var polylineOptions = {
             strokeColor: color,
@@ -227,7 +239,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             travelMode: google.maps.TravelMode.WALKING
         };
         dirService.route(request, function(response, status){
-            if(status == google.maps.DirectionsStatus.OK){
+            if(status === google.maps.DirectionsStatus.OK){
                 var legs = response.routes[0].legs;
                 for (i = 0; i < legs.length; i++){
                     var steps = legs[i].steps;
