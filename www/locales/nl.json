@@ -24,6 +24,12 @@
   "ISSUE_POST_ERROR_TITLE": "Fout bij het opslaan van de melding",
   "ISSUE_POST_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het opslaan van de melding. Neem A.U.B. contact op met de beheerder.",
   "ISSUE_POST_ERROR_ACCEPT": "Oké.",
+  "ISSUE_POST_DESCRIPTION_ERROR_TITLE": "Omschrijf het probleem",
+  "ISSUE_POST_DESCRIPTION_ERROR_EXPLANATION": "Vul de omschrijving van het probleem in.",
+  "ISSUE_POST_DESCRIPTION_ERROR_ACCEPT": "Oké.",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_TITLE": "Fout bij het uploaden van de foto",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het uploaden van de foto. Neem A.U.B. contact op met de beheerder.",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT": "Oké.",
 
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",

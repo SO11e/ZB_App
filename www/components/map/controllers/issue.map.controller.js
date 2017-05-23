@@ -65,11 +65,11 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
     }
 
     function getCurrentAddress(geocoder, map, infowindow, latLng, lat, lng) {
-        console.log("Getting current address with latLng");
-        console.log(latLng);
+        console.log("Getting current address");
 
         geocoder.geocode({'location': latLng}, function (results, status) {
-            console.log(status);
+            console.log("GEOCODER RESPONSE: " + status);
+            console.log("RESULTS");
             console.log(results);
             if (status === 'OK') {
                 if (results[0]) {
@@ -133,13 +133,8 @@ module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup)
                         postalCode = "Niet gevonden";
                     }
 
-                    console.log('Broadcasting addressLoadedEvent');
-                    console.log('Street: ' + street);
-                    console.log('City: ' + city);
-                    console.log('PostalCode: ' + postalCode);
-                    console.log('Lng: ' + lng);
-                    console.log('Lat: ' + lat);
-
+         
+                    console.log('Broadcasting: addressLoadedEvent');
                     // Broadcast address loaded
                     $rootScope.$broadcast('addressLoadedEvent', {
                         street: street,

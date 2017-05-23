@@ -1,13 +1,14 @@
 module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFactory, $cordovaCamera, $ionicPopup, $translate) {
 
-    $scope.pictureUrl = 'http://placehold.it/100x100';
+    $scope.photoPath = "";
+    $scope.showPhoto = false;
     $scope.issue = {
-        street : '',
-        city : '',
-        postalCode : '',
-        description : '',
-        lat : '',
-        lng : ''
+        street : "",
+        city : "",
+        postalCode : "",
+        description : "",
+        lat : "",
+        lng : ""
     };
 
     $rootScope.$on('addressLoadedEvent', function (event, data) {
@@ -25,26 +26,49 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
     $scope.takePhoto = function(){
         console.log('Opening camera');
 
-        var srcType = Camera.PictureSourceType.CAMERA;
-        var options = setOptions(srcType);
+        var options = {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 100,
+            targetHeight: 100,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false,
+            correctOrientation:true
+        };
 
-        navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.photo = "data:image/jpeg;base64," + imageData;
+            $scope.showPhoto = true;
 
-            $scope.pictureUrl = imageUri;
+        }, function(err) {
+        // error
+        });
+
+        // var srcType = Camera.PictureSourceType.CAMERA;
+        // var options = setOptions(srcType);
+
+        // navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+        //     $scope.photo = imageUri;
+        //     $scope.showPhoto = true;
+        //     $scope.$apply();
             
-            // You may choose to copy the picture, save it somewhere, or upload.
-            createNewFileEntry(imageUri);
+        //     // You may choose to copy the picture, save it somewhere, or upload.
+        //     createNewFileEntry(imageUri);
 
-        }, function cameraError(error) {
-            $ionicPopup.alert({
-                title: $translate.instant('ISSUES_ADD_PHOTO_ERROR_TITLE'),
-                template: $translate.instant('ISSUES_ADD_PHOTO_ERROR_EXPLANATION'),
-                okText: $translate.instant('ISSUES_ADD_PHOTO_ERROR_ACCEPT')
-            });
+        // }, function cameraError(error) {
+        //     $ionicPopup.alert({
+        //         title: $translate.instant('ISSUES_ADD_PHOTO_ERROR_TITLE'),
+        //         template: $translate.instant('ISSUES_ADD_PHOTO_ERROR_EXPLANATION'),
+        //         okText: $translate.instant('ISSUES_ADD_PHOTO_ERROR_ACCEPT')
+        //     });
 
-            console.debug("Unable to obtain picture: " + error, "app");
+        //     console.log("Unable to obtain picture: " + error);
 
-        }, options);
+        // }, options);
 
     };
 
@@ -56,7 +80,9 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
 
-            $scope.pictureUrl = imageUri;
+            $scope.photo = imageUri;
+            $scope.showPhoto = true;
+            $scope.$apply();
 
             // You may choose to copy the picture, save it somewhere, or upload.
             createNewFileEntry(imageUri);
@@ -68,7 +94,7 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
                 okText: $translate.instant('ISSUES_ADD_PHOTO_ERROR_ACCEPT')
             });
 
-            console.debug("Unable to obtain picture: " + error, "app");
+            console.log("Unable to obtain picture: " + error);
 
         }, options);
         
@@ -82,13 +108,20 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
             city : $scope.issue.city,
             postalCode : $scope.issue.postalCode,
             description : $scope.issue.description,
+            photoPath : "",
             lat : $scope.issue.lat,
             lng : $scope.issue.lng
         };
+        if($scope.photoPath !== ""){
+            issue.photoPath = $scope.photoPath;
+        }
+        console.log('Posting issue to factory');
+        console.log(issue);
         IssuesFactory.postIssue(issue);
     };
 
     $scope.removePhoto = function () {
+        $scope.photo = null;
         $scope.showPhoto = false;
     };
 
@@ -125,12 +158,14 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
         var options = {
             // Some common settings are 20, 50, and 100
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
+            destinationType: Camera.DestinationType.DATA_URL,
             // In this app, dynamically set the picture source, Camera or photo gallery
             sourceType: srcType,
-            encodingType: Camera.EncodingType.JPEG,
-            mediaType: Camera.MediaType.PICTURE,
             allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 100,
+            targetHeight: 100,
+            saveToPhotoAlbum: true,
             correctOrientation: true  //Corrects Android orientation quirks
         }
         return options;

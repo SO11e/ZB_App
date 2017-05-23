@@ -1,4 +1,4 @@
-module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $translate) {
+module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $translate, $cordovaFileTransfer) {
     var token = AuthorizationFactory.getAuthToken();
 
     function getIssues() {
@@ -30,12 +30,19 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     function postIssue(issue) {
         console.log('Token: ' + token);
-
-        if(issue.street === '' || issue.city === '' || issue.postalCode === '' || issue.description === '' || issue.lat === '' || issue.lng === ''){
+        if(issue.street === "" || issue.city === "" || issue.postalCode === "" || issue.lat === "" || issue.lng === ""){
+            console.error('Not all required issue properties are set');
             $ionicPopup.alert({
                 title: $translate.instant('ISSUE_POST_ERROR_TITLE'),
                 template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
                 okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
+            });
+        } else if (issue.description === "") {
+            console.error('Missing the description');
+            $ionicPopup.alert({
+                title: $translate.instant('ISSUE_POST_DESCRIPTION_ERROR_TITLE'),
+                template: $translate.instant('ISSUE_POST_DESCRIPTION_ERROR_EXPLANATION'),
+                okText: $translate.instant('ISSUE_POST_DESCRIPTION_ERROR_ACCEPT')
             });
         } else {
             return $http.post(hostname + "/issues", {
@@ -50,13 +57,64 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                     headers: { 
                         'bearer': token 
             }}).then(function (response) {
-                $ionicPopup.alert({
-                    title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
-                    template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
-                    okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
-                });
+                console.log('API SUCCESS RESPONSE');
+                console.log(response.data);
 
-                console.log('API RESPONSE: ' + response.data);
+                if(issue.photoPath !== ""){
+                    console.log('photoPath: ' + issue.photoPath);
+                    
+                    if(response.data._id !== null){
+                        //Variables for file transfer
+                        var server = "plaats hier de server URL";
+                        var targetPath = issue.photoPath;
+                        var trustHosts = true;
+                        var options = {};
+                        options.fileName = "hier komt de bestandsnaam";
+
+                        $cordovaFileTransfer.upload(server, targetPath, options, trustAllHosts)
+                            .then(function(result) {
+                                // Success!
+                                console.log("FILETRANSFER SUCCESS" );
+                                console.log(result);
+
+                                $ionicPopup.alert({
+                                    title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
+                                    template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
+                                    okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
+                                });
+                            }, function(err) {
+                                // Error
+                                console.log("FILETRANSFER ERROR" );
+                                console.error(err);
+
+                                $ionicPopup.alert({
+                                    title: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_TITLE'),
+                                    template: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION'),
+                                    okText: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT')
+                                });
+                            }, function (progress) {
+                                // constant progress updates
+                                console.log("FILETRANSFER PROGRESS");
+                                console.log(progress);
+                        });
+                    } else {
+                        console.log("Response from API had no issue _id");
+                        $ionicPopup.alert({
+                            title: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_TITLE'),
+                            template: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION'),
+                            okText: $translate.instant('ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT')
+                        });
+                    }
+
+                    
+                } else {
+                    $ionicPopup.alert({
+                        title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
+                        template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
+                        okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
+                    });
+                }
+
                 return response.data;
             }, function(error) {
                 $ionicPopup.alert({
@@ -64,7 +122,8 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                     template: $translate.instant('ISSUE_POST_ERROR_EXPLANATION'),
                     okText: $translate.instant('ISSUE_POST_ERROR_ACCEPT')
                 });
-                console.log('API ERROR: ' + error);
+                console.log('API ERROR RESPONSE');
+                console.log(error);
             });
         }
     }

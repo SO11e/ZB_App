@@ -24,6 +24,12 @@
   "ISSUE_POST_ERROR_TITLE": "Error while saving the issue",
   "ISSUE_POST_ERROR_EXPLANATION": "Something went wrong while saving the issue. Please contact the Administrator.",
   "ISSUE_POST_ERROR_ACCEPT": "Ok.",
+  "ISSUE_POST_DESCRIPTION_ERROR_TITLE": "Describe the problem",
+  "ISSUE_POST_DESCRIPTION_ERROR_EXPLANATION": "Please fill in the description of the problem.",
+  "ISSUE_POST_DESCRIPTION_ERROR_ACCEPT": "Ok.",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_TITLE": "Error while uploading photo",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION": "Something went wrong while uploading the photo. Please contact the Administrator.",
+  "ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT": "Ok.",
 
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",
