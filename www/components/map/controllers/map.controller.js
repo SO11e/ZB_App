@@ -74,8 +74,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             }
 
             google.maps.event.addListener($scope.map, 'click', function(event){
-                console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
-
                 testLat = event.latLng.lat();
                 testLng = event.latLng.lng();
             });
@@ -106,8 +104,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
         if(typeof timer === 'undefined'){
             if(gpsEnabled){
                 if(typeof timer === 'undefined'){
-                    console.log('start route');
-
                     routeWalked = [];
 
                     timer = setInterval(updateRoute, 3000);
@@ -130,7 +126,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             popup.then(function (res) {
                 if(res){
-                    console.log('end route');
                     clearInterval(timer);
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
@@ -171,7 +166,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
                 renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
             return;
         }
@@ -201,7 +195,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
                 renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
         }, function(error){
             // Show Could not get location alert dialog
