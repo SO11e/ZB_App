@@ -1,7 +1,7 @@
-module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory) {
+module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory, $window) {
 
     var issues = IssuesFactory.getIssues();
-    var routesWalked = RoutesWalkedFactory.getRoutesWalked();
+    var routesWalked;
     var gpsEnabled = false;
     var timer = undefined;
     var routeWalked = {};
@@ -79,18 +79,23 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 testLat = event.latLng.lat();
                 testLng = event.latLng.lng();
             });
-            console.log(routesWalked);
 
             //Add routes walked
-            for(var j = 0; j < routesWalked.length; j++){
-                for(var i = 0; i < routesWalked[j].waypoints.length; i++){
-                    if(i > 0){
-                        var origin = new google.maps.LatLng(routesWalked[j].waypoints[i-1].latitude, routesWalked[j].waypoints[i-1].longitude);
-                        var destination = new google.maps.LatLng(routesWalked[j].waypoints[i].latitude, routesWalked[j].waypoints[i].longitude);
-                        renderRoute(origin, destination, 'green');
+            var peter = 0;
+            RoutesWalkedFactory.getRoutesWalked().then(function(rw){
+                for(var j = 0; j < rw.length; j++){
+                    console.log("Route: " + j);
+                    for(var i = 0; i < rw[j].waypoints.length; i++){
+                        console.log("w: " + i);
+                        if(i > 0){
+                            var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
+                            var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                            peter++;
+                            renderRoute(origin, destination, 'green');
+                        }
                     }
                 }
-            }
+            });
 
         });
     }
@@ -112,7 +117,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 }
             }
             else{
-                var alertPopup = $ionicPopup.alert({
+                $ionicPopup.alert({
                     title: 'Geen locatie',
                     template: 'We kunnen helaas uw huidige locatie niet ophalen'
                 });
@@ -131,9 +136,9 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                     clearInterval(timer);
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
-                    RoutesWalkedFactory.addRouteWalked(routeWalked);
-                    //console.log(routesWalked);
-                    console.log(routeWalked);
+                    RoutesWalkedFactory.addRouteWalked(routeWalked).then(function(res){
+                        //$window.location.reload(true);
+                    });
                 }
                 else{
 
@@ -213,7 +218,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     }
 
     function measure(lat1, lon1, lat2, lon2){
-        var R = 6378.137; // Radius of earth in KM
+        var R = 6378.137;
         var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
         var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -221,7 +226,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
-        return d * 1000; // meters
+        return d * 1000;
     }
 
     function renderRoute(origin, destination, color){

@@ -53,9 +53,12 @@ module.exports = function (hostname, $http, AuthorizationFactory) {
 
     function getRoutesWalked() {
         //return routesWalked;
-        console.log(AuthorizationFactory.getUsername());
+        var user = AuthorizationFactory.getUser();
+        console.log(user);
+        console.log(AuthorizationFactory.getAuthToken());
 
-        return $http.get(hostname + '/routeswalked', { headers: { 'bearer': token } } ).then(function (routesWalked) {
+        return $http.get(hostname + '/routeswalked?perPage=1000', { headers: { 'bearer': token } } ).then(function (routesWalked) {
+            console.log(routesWalked.data.data);
             return routesWalked.data.data;
         }, function(error){
             console.log(error);
@@ -67,11 +70,12 @@ module.exports = function (hostname, $http, AuthorizationFactory) {
 
         var routeWalked = {
             userId: user._id,
-            regionId: user.region,
+            regionId: user.region._id,
             waypoints: waypoints
         };
 
-        return $http.post(hostname + 'routeswalked', JSON.stringify(routeWalked), {headers: {'bearer': token}}).then(function(response){
+        return $http.post(hostname + '/routeswalked?page=2', JSON.stringify(routeWalked), {headers: {'bearer': token}}).then(function(response){
+            console.log(response);
             return response.data;
         }, function(error){
             console.log(error);
