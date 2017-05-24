@@ -7,10 +7,11 @@
         </div>
         <div class="list list-inset">
             <div class="item">
-                {{issue.streetName}} {{issue.houseNumber}}
+                <span ng-if="issue.streetName">{{issue.streetName}} {{issue.houseNumber}}</span>
             </div>
             <div class="item">
-                {{issue.postalCode}} {{issue.place}}
+                <span ng-if="issue.postalCode">{{issue.postalCode}}</span>
+                <span ng-if="issue.place">{{issue.place}}</span>
             </div>
             <div class="item item-text-wrap">
                 {{issue.description}}
@@ -26,10 +27,6 @@
                 {{issue.dateResolved | date : 'dd-MM-yyyy'}}
             </div>
         </div>
-        <div class="card">
-            <div class="item item-image">
-                <img src="img/kaart.png"/>
-            </div>
-        </div>
+        <ui-view name="map"></ui-view>
     </ion-content>
 </ion-view>

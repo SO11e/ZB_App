@@ -13,6 +13,10 @@
   "ISSUES_ADD_REMOVE_PHOTO": "Remove photo",
   "ISSUES_ADD_SAVE_ISSUE": "Save issue",
 
+  "MAP_UNKNOWN_LOCATION": "Location not found",
+  "MAP_UNKNOWN_LOCATION_EXPLANATION": "Your current location can not be found. Please make sure locationservices are enabled and that the application has access to this information.",
+  "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Ok",
+
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",
   "SETTINGS_LOGOUT_BUTTON": "Logout",

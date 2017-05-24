@@ -13,6 +13,10 @@
   "ISSUES_ADD_REMOVE_PHOTO": "Foto verwijderen",
   "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
 
+  "MAP_UNKNOWN_LOCATION": "Geen locatie",
+  "MAP_UNKNOWN_LOCATION_EXPLANATION": "Uw huidige locatie kan niet opgehaald worden. Zorg ervoor dat locatievoorzieningen ingeschakeld zijn en dat de app toegang heeft tot deze gegevens.",
+  "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Oké",
+
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",
   "SETTINGS_LOGOUT_BUTTON": "Uitloggen",

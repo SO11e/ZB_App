@@ -19,7 +19,7 @@ module.exports = function ($stateProvider) {
                 },
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.add.html',
-                    controller: 'IssueController'
+                    controller: 'IssueAddController'
                 }
             }
         })
@@ -30,6 +30,9 @@ module.exports = function ($stateProvider) {
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.details.html',
                     controller: 'IssueController'
+                },
+                'map@app.issues.details': {
+                    templateUrl: 'components/map/templates/issue.map.html'
                 }
             }
         });
