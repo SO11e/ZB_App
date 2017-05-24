@@ -9,4 +9,8 @@ module.exports = function ($scope, $state, $stateParams, $cordovaGeolocation, Is
         console.error(error);
     });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 };

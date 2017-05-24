@@ -1,44 +1,44 @@
 <ion-view id="reports-add" view-title="{{'ISSUES_ADD_TITLE' | translate}}">
     <ion-content class="padding">
         <ui-view name="map"></ui-view>
+        <h4 class="">
+            <span>{{ 'ISSUES_ADD_DESCRIPTION' | translate}}</span>
+        </h4>
         <form>
             <ion-list>
                 <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}">
+                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}: {{issue.street}}</span>
                 </label>
                 <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_POSTAL_CODE' | translate}}">
+                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}: {{issue.city}}</span>
                 </label>
                 <label class="item item-input">
-                    <input type="text"
-                           placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}">
+                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_POSTAL_CODE' | translate}}: {{issue.postalCode}}</span>
                 </label>
                 <label class="item item-input">
-                    <textarea placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_EXPLANATION' | translate}}"></textarea>
+                    <textarea ng-model="issue.description" placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_EXPLANATION' | translate}}"></textarea>
                 </label>
             </ion-list>
-            <button class="button button-block button-energized"
+            
+            <button class="button button-block button-positive"
                     translate="ISSUES_ADD_TAKE_NEW_PHOTO"
-                    ng-hide="showPhoto"
-                    ng-click="addPhoto()"></button>
+                    ng-click="takePhoto()"></button>
             <button class="button button-block button-positive"
                     translate="ISSUES_ADD_SELECT_EXCISING_PHOTO"
-                    ng-hide="showPhoto"
-                    ng-click="removePhoto()"></button>
-            <div class="card" ng-show="showPhoto">
+                    ng-click="addPhotoFromGallery()"></button>
+
+            <div class="card" ng-show="photoLoaded">
                 <ion-item class="item-image">
-                    <img src="img/locatie.png"/>
+                    <img ng-src="{{pictureUrl}}" style="width:100%;height:100px;"/>
                 </ion-item>
             </div>
-            <button class="button button-block button-assertive"
+
+            <button class="button button-block button-balanced"
                     translate="ISSUES_ADD_REMOVE_PHOTO"
-                    ng-show="showPhoto"
                     ng-click="removePhoto()"></button>
             <button class="button button-block button-balanced"
                     translate="ISSUES_ADD_SAVE_ISSUE"
-                    ui-sref="app.issues"></button>
+                    ng-click="saveIssue()"></button>
         </form>
     </ion-content>
 </ion-view>
