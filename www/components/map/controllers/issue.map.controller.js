@@ -1,10 +1,12 @@
-module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
+module.exports = function ($scope, $rootScope, $cordovaGeolocation, $ionicPopup) {
 
-    // Google Maps options
+     // Google Maps options
     var options = {
         timeout: 10000,
         enableHighAccuracy: true
     };
+
+
 
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -13,8 +15,9 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
         // Show Could not get location alert dialog
         var alertPopup = $ionicPopup.alert({
             title: 'Geen locatie',
-            template: 'We kunnen helaas uw huidige locatie niet ophalen'
+            template: 'We kunnen helaas uw huidige locatie niet ophalen. Zet uw locatie service aan.'
         });
+        //TODO promt voor het aanzetten van locatie service
     });
 
 
@@ -23,13 +26,19 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
 
         // Map options
         var mapOptions = {
-            zoom: 15,
+            zoom: 9,
             center: latLng,
             disableDefaultUI: true
         };
 
         // Map element
-        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        $scope.map = map;
+
+        // Variables needed to get the address
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+        getCurrentAddress(geocoder, map, infowindow, latLng, lat, lng);
 
         // Google Maps
         // Wait until the map is loaded
@@ -52,6 +61,102 @@ module.exports = function ($scope, $cordovaGeolocation, $ionicPopup) {
                 infoWindow.open($scope.map, marker);
             });
 
+        });
+    }
+
+    function getCurrentAddress(geocoder, map, infowindow, latLng, lat, lng) {
+        console.log("Getting current address");
+
+        geocoder.geocode({'location': latLng}, function (results, status) {
+            console.log("GEOCODER RESPONSE: " + status);
+            console.log("RESULTS");
+            console.log(results);
+            if (status === 'OK') {
+                if (results[0]) {
+                    map.setZoom(17);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: map
+                    });
+                    infowindow.setContent(results[0].formatted_address);
+                    infowindow.open(map, marker);
+
+                    // variables for forLoops
+                    var i = 0;
+                    var o = 0;
+
+                    // Getting street
+                    var street = "";
+                    var streetFound = false;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "route") {
+                                streetFound = true;
+                                street = results[0].address_components[o].long_name;
+                                break;
+                            }
+                        }
+                    }
+                    if(!streetFound){
+                        street = "Niet gevonden";
+                    } 
+
+                    // Getting city
+                    var city = "";
+                    var cityFound = false;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "locality") {
+                                cityFound = true;
+                                city = results[0].address_components[o].long_name;
+                                break;
+                            }
+                        }
+                    }
+                    if(!cityFound){
+                        city = "Niet gevonden";
+                    }
+
+                    // Getting postal code
+                    var postalCode = "";
+                    var postalCodeFound = false;
+                    for (o = 0; o < results[0].address_components.length; o++) {
+                        for (i = 0; i < results[0].address_components[o].types.length; i++) {
+                            if (results[0].address_components[o].types[i] === "postal_code" || results[0].address_components[o].types[i] === "postal_code_prefix") {
+                                postalCodeFound = true;
+                                postalCode = results[0].address_components[o].long_name;
+                                break;
+                            }
+                        }
+                    }
+                    if(!postalCodeFound){
+                        postalCode = "Niet gevonden";
+                    }
+
+         
+                    console.log('Broadcasting: addressLoadedEvent');
+                    // Broadcast address loaded
+                    $rootScope.$broadcast('addressLoadedEvent', {
+                        street: street,
+                        city: city,
+                        postalCode: postalCode,
+                        lng: lng,
+                        lat: lat
+                    });
+
+
+                } else {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Geen adres gevonden.',
+                        template: 'We kunnen helaas uw huidige adres niet vinden. Raadpleeg a.u.b. de beeherder.'
+                    });
+                }
+            } else {
+                var errorPopup = $ionicPopup.alert({
+                    title: 'Fout bij het ophalen van het adres.',
+                    template: 'We kunnen helaas uw huidige adres niet vinden. Raadpleeg a.u.b. de beeherder.'
+                });
+            }
         });
     }
 };

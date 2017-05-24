@@ -5,11 +5,5 @@ module.exports = function ($scope, $state, $stateParams, IssuesFactory) {
         console.log(issue);
     });
 
-    $scope.addPhoto = function () {
-        $scope.showPhoto = true;
-    };
 
-    $scope.removePhoto = function () {
-        $scope.showPhoto = false;
-    };
 };
