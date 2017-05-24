@@ -14,12 +14,11 @@ module.exports = function ($stateProvider) {
             url: '/add',
             views: {
                 'map@app.map.addIssue': {
-                    templateUrl: 'components/map/templates/issue.map.html',
-                    controller: 'IssueMapController'
+                    templateUrl: 'components/map/templates/issue.map.html'
                 },
                 'map@app': {
                     templateUrl: 'components/issues/templates/issues.add.html',
-                    controller: 'IssueController'
+                    controller: 'IssueAddController'
                 }
             }
         })
