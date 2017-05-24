@@ -13,9 +13,10 @@
   "ISSUES_ADD_SELECT_EXCISING_PHOTO": "Selecteer foto uit gallerij",
   "ISSUES_ADD_REMOVE_PHOTO": "Foto verwijderen",
   "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
-  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Fout bij het ophalen van de foto.",
-  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het ophalen van de foto. Neem A.U.B. contact op met de beheerder.",
-  "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Oké.",
+  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Fout bij het ophalen van de foto",
+  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het ophalen van de foto. Neem a.u.b. contact op met de beheerder.",
+  "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Oké",
+  "ISSUES_ADD_LOCATION_NOT_FOUND": "Niet gevonden",
 
   "ISSUE_POST_SUCCESS_TITLE": "Melding opgeslagen",
   "ISSUE_POST_SUCCESS_EXPLANATION": "De melding is opgeslagen.",
@@ -30,10 +31,13 @@
   "ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het uploaden van de foto. Neem A.U.B. contact op met de beheerder.",
   "ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT": "Oké.",
 
+  "MAP_TITLE": "Kaart",
+
   "MAP_UNKNOWN_LOCATION": "Geen locatie",
   "MAP_UNKNOWN_LOCATION_EXPLANATION": "Uw huidige locatie kan niet opgehaald worden. Zorg ervoor dat locatievoorzieningen ingeschakeld zijn en dat de app toegang heeft tot deze gegevens.",
   "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Oké",
 
+  "MAP_ROUTE_START": "Route starten",
   "MAP_ROUTE_STOP": "Route stoppen",
   "MAP_ROUTE_STOP_EXPLANATION": "Wilt u deze route opslaan?",
   "MAP_ROUTE_STOP_YES": "Ja",
@@ -49,8 +53,6 @@
   "SETTINGS_LANGUAGE_DIVIDER": "Kies uw taal",
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
-  "MAP_TITLE": "Kaart",
-  "MAP_ROUTE_START": "Start Route",
 
   "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
   "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",
