@@ -1,10 +1,10 @@
-module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory) {
+module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory, $window) {
 
     var issues = IssuesFactory.getIssues();
-    var routesWalked = RoutesWalkedFactory.getRoutesWalked();
+    var routesWalked;
     var gpsEnabled = false;
     var timer = undefined;
-    var routeWalked = [];
+    var routeWalked = {};
     var dirService = new google.maps.DirectionsService();
 
     var test = true;
@@ -45,7 +45,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             center: latLng,
             disableDefaultUI: true
         };
-
         // Map element
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -64,52 +63,55 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
                 var infoWindow = new google.maps.InfoWindow();
                 var content =   '<img src="' + issues[i].foto + '" width="100"/>' +
-                                '<br>' + issues[i].toelichting +
-                                '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> '
+                    '<br>' + issues[i].toelichting +
+                    '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> ';
                 google.maps.event.addListener(marker,'click', (function(marker,content,infoWindow){
                     return function() {
                         infoWindow.setContent(content);
                         infoWindow.open(map,marker);
                     };
                 })(marker,content,infoWindow));
-
-                google.maps.event.addListener($scope.map, 'click', function(event){
-                    console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
-
-                    testLat = event.latLng.lat();
-                    testLng = event.latLng.lng();
-                });
             }
+
+            google.maps.event.addListener($scope.map, 'click', function(event){
+                testLat = event.latLng.lat();
+                testLng = event.latLng.lng();
+            });
 
             //Add routes walked
-            for(var j = 0; j < routesWalked.length; j++){
-                for(var i = 0; i < routesWalked[j].waypoints.length; i++){
-                    if(i > 0){
-                        var origin = new google.maps.LatLng(routesWalked[j].waypoints[i-1].latitude, routesWalked[j].waypoints[i-1].longitude);
-                        var destination = new google.maps.LatLng(routesWalked[j].waypoints[i].latitude, routesWalked[j].waypoints[i].longitude);
-                        renderRoute(origin, destination, 'green');
+            var counter = 0;
+            RoutesWalkedFactory.getRoutesWalked().then(function(rw){
+                for(var j = 0; j < rw.length; j++){
+                    for(var i = 0; i < rw[j].waypoints.length; i++){
+                        if(i > 0){
+                            var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
+                            var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                            counter++;
+                            setTimeout(renderRoute, counter*400, origin, destination, 'green');
+                        }
                     }
                 }
-            }
+            });
 
         });
     }
 
     $scope.createIssue = function() {
         $state.go("app.map.addIssue");
-    }
+    };
 
     $scope.walkRoute = function(){
-        if(typeof timer == 'undefined'){
+        if(typeof timer === 'undefined'){
             if(gpsEnabled){
-                if(typeof timer == 'undefined'){
-                    console.log('start route');
+                if(typeof timer === 'undefined'){
+                    routeWalked = [];
+
                     timer = setInterval(updateRoute, 3000);
                     document.getElementById("route-button").innerHTML = "Stop route";
                 }
             }
             else{
-                var alertPopup = $ionicPopup.alert({
+                $ionicPopup.alert({
                     title: 'Geen locatie',
                     template: 'We kunnen helaas uw huidige locatie niet ophalen'
                 });
@@ -124,12 +126,12 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             popup.then(function (res) {
                 if(res){
-                    console.log('end route');
                     clearInterval(timer);
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
-
-                    routesWalked.push(routeWalked);
+                    RoutesWalkedFactory.addRouteWalked(routeWalked).then(function(res){
+                        $window.location.reload(true);
+                    });
                 }
                 else{
 
@@ -141,16 +143,18 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     function updateRoute(){
         if(test){
             if(routeWalked.length > 0){
-                if(measure(routeWalked[routeWalked.length-1].lat(), routeWalked[routeWalked.length-1].lng(), testLat, testLng) > 20){
-                    routeWalked.push(
-                        new google.maps.LatLng(testLat, testLng)
-                    );
+                if(measure(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude, testLat, testLng) > 20){
+                    routeWalked.push({
+                        latitude: testLat,
+                        longitude: testLng
+                    });
                 }
             }
             else{
-                routeWalked.push(
-                    new google.maps.LatLng(testLat, testLng)
-                );
+                routeWalked.push({
+                    latitude: testLat,
+                    longitude: testLng
+                });
             }
             var pos = new google.maps.LatLng(testLat, testLng);
 
@@ -158,25 +162,28 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             //update route
             if(routeWalked.length > 1){
-                renderRoute(routeWalked[routeWalked.length-2], routeWalked[routeWalked.length-1], 'blue');
+                var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
+                var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
+                renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
             return;
         }
 
         $cordovaGeolocation.getCurrentPosition(options).then(function(position){
             if(routeWalked.length > 0){
-                if(measure(routeWalked[routeWalked.length-1].lat(), routeWalked[routeWalked.length-1].lng(), position.coords.latitude, position.coords.longitude) > 20){
-                    routeWalked.push(
-                        new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                    );
+                if(measure(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude, position.coords.latitude, position.coords.longitude) > 20){
+                    routeWalked.push({
+                        latitude: testLat,
+                        longitude: testLng
+                    });
                 }
             }
             else{
-                routeWalked.push(
-                    new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                );
+                routeWalked.push({
+                    latitude: testLat,
+                    longitude: testLng
+                });
             }
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -184,9 +191,10 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             //update route
             if(routeWalked.length > 1){
-                renderRoute(routeWalked[routeWalked.length-2], routeWalked[routeWalked.length-1], 'blue');
+                var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
+                var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
+                renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
         }, function(error){
             // Show Could not get location alert dialog
@@ -201,7 +209,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
     }
 
     function measure(lat1, lon1, lat2, lon2){
-        var R = 6378.137; // Radius of earth in KM
+        var R = 6378.137;
         var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
         var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -209,11 +217,11 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
-        return d * 1000; // meters
+        return d * 1000;
     }
 
     function renderRoute(origin, destination, color){
-        if(typeof color == 'undefined'){ color = 'green'; }
+        if(typeof color === 'undefined'){ color = 'green'; }
 
         var polylineOptions = {
             strokeColor: color,
@@ -227,7 +235,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             travelMode: google.maps.TravelMode.WALKING
         };
         dirService.route(request, function(response, status){
-            if(status == google.maps.DirectionsStatus.OK){
+            if(status === google.maps.DirectionsStatus.OK){
                 var legs = response.routes[0].legs;
                 for (i = 0; i < legs.length; i++){
                     var steps = legs[i].steps;
