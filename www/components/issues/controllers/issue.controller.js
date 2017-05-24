@@ -1,10 +1,9 @@
 module.exports = function ($scope, $state, $stateParams, IssuesFactory) {
 
-    $scope.issue = IssuesFactory.getIssue($stateParams.issueId);
-
-    /*ReportsFactory.getReport($stateParams.reportId).then(function (report) {
-        $scope.report = report;
-    });*/
+    IssuesFactory.getIssue($stateParams.issueId).then(function (issue) {
+        $scope.issue = issue;
+        console.log(issue);
+    });
 
 
 };

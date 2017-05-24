@@ -37,10 +37,12 @@
   "SETTINGS_GREETING_DIVIDER": "Hallo, ",
   "SETTINGS_EXPLANATION" : "Hier kunt u zien in welke regio u bent ingedeeld. Daarnaast kunt u hier de taal waarin de applicatie weergegeven wordt wijzigen.",
   "SETTINGS_REGION_DIVIDER": "Uw regio",
+  "SETTINGS_REGION_NO_REGION": "U bent nog niet ingedeeld in een regio",
   "SETTINGS_LANGUAGE_DIVIDER": "Kies uw taal",
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
   "MAP_TITLE": "Kaart",
+  "MAP_ROUTE_START": "Start Route",
 
   "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
   "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",

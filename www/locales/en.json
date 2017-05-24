@@ -37,11 +37,13 @@
   "SETTINGS_GREETING_DIVIDER": "Hello, ",
   "SETTINGS_EXPLANATION" : "Here you can see to which region you have been assigned. Furthermore you can change the language of the application.",
   "SETTINGS_REGION_DIVIDER": "Your region",
+  "SETTINGS_REGION_NO_REGION": "You have not been assigned a region",
   "SETTINGS_LANGUAGE_DIVIDER": "Choose your language",
   "SETTINGS_LANGUAGE_DUTCH": "Dutch",
   "SETTINGS_LANGUAGE_ENGLISH": "English",
 
   "MAP_TITLE": "Map",
+  "MAP_ROUTE_START": "Start Route",
 
   "LOGIN_EMAIL_PLACEHOLDER": "Email address",
   "LOGIN_PASSWORD_PLACEHOLDER": "Password",
