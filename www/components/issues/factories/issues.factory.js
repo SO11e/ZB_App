@@ -16,16 +16,11 @@ module.exports = function (hostname, $http, AuthorizationFactory) {
     }
 
     function getIssue(issueId) {
-        /* for (var i = 0; i < issues.length; i++) {
-            if (issues[i].id === parseInt(issueId)) {
-                return issues[i];
-            }
-        }
-        return null; */
-
-        /*return $http.get("HIER KOMT DE LINK NAAR DE API").then(function (report) {
-            return report;
-        });*/
+        return $http.get(hostname + "/issues/" + issueId, { headers: { 'bearer': token } } ).then(function (response) {
+            return response.data;
+        }, function(error) {
+            console.error(error);
+        });
     }
 
     return {
