@@ -1,7 +1,5 @@
-module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, IssuesFactory, RoutesWalkedFactory, $window) {
+module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $window, IssuesFactory, RoutesWalkedFactory, MapFactory) {
 
-    var issues = IssuesFactory.getIssues();
-    var routesWalked;
     var gpsEnabled = false;
     var timer = undefined;
     var routeWalked = {};
@@ -21,80 +19,15 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
         gpsEnabled = true;
         testLat = position.coords.latitude;
         testLng = position.coords.longitude;
-        showMap(position.coords.latitude, position.coords.longitude);
+        MapFactory.showMap(position.coords.latitude, position.coords.longitude);
     }, function(error){
-        // Show Could not get location alert dialog
+        MapFactory.showLocationError();
         gpsEnabled = false;
-        var alertPopup = $ionicPopup.alert({
-            title: 'Geen locatie',
-            template: 'We kunnen helaas uw huidige locatie niet ophalen'
-        });
 
         testLat = 51.688420;
         testLng = 5.287392;
-        showMap(51.688420, 5.287392);
+        MapFactory.showMap(testLat, testLng);
     });
-
-
-    function showMap(lat, lng) {
-        var latLng = new google.maps.LatLng(lat, lng);
-
-        // Map options
-        var mapOptions = {
-            zoom: 12,
-            center: latLng,
-            disableDefaultUI: true
-        };
-        // Map element
-        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        // Google Maps
-        // Wait until the map is loaded
-        // Sets a popup window when the user taps a marker
-        google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-            $scope.hideSpinner = true;
-            for(var i = 0; i < issues.length; i++){
-                var coordinates = new google.maps.LatLng(issues[i].latitude, issues[i].longitude);
-                var marker = new google.maps.Marker({
-                    map: $scope.map,
-                    animation: google.maps.Animation.DROP,
-                    position: coordinates
-                });
-
-                var infoWindow = new google.maps.InfoWindow();
-                var content =   '<img src="' + issues[i].foto + '" width="100"/>' +
-                    '<br>' + issues[i].toelichting +
-                    '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> ';
-                google.maps.event.addListener(marker,'click', (function(marker,content,infoWindow){
-                    return function() {
-                        infoWindow.setContent(content);
-                        infoWindow.open(map,marker);
-                    };
-                })(marker,content,infoWindow));
-            }
-
-            google.maps.event.addListener($scope.map, 'click', function(event){
-                testLat = event.latLng.lat();
-                testLng = event.latLng.lng();
-            });
-
-            //Add routes walked
-            var counter = 0;
-            RoutesWalkedFactory.getRoutesWalked().then(function(rw){
-                for(var j = 0; j < rw.length; j++){
-                    for(var i = 0; i < rw[j].waypoints.length; i++){
-                        if(i > 0){
-                            var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
-                            var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
-                            counter++;
-                            setTimeout(renderRoute, counter*400, origin, destination, 'green');
-                        }
-                    }
-                }
-            });
-
-        });
-    }
 
     $scope.createIssue = function() {
         $state.go("app.map.addIssue");
@@ -111,18 +44,14 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 }
             }
             else{
-                $ionicPopup.alert({
-                    title: 'Geen locatie',
-                    template: 'We kunnen helaas uw huidige locatie niet ophalen'
-                });
+                MapFactory.showLocationError();
             }
         }
         else{
-
             var popup = $ionicPopup.confirm({
                 title: "Route stoppen",
                 template: "Wilt u deze route opslaan?"
-            })
+            });
 
             popup.then(function (res) {
                 if(res){
@@ -164,7 +93,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             if(routeWalked.length > 1){
                 var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
-                renderRoute(origin, destination, 'blue');
+                MapFactory.renderRoute(origin, destination, 'blue');
             }
 
             return;
@@ -193,7 +122,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             if(routeWalked.length > 1){
                 var origin = new google.maps.LatLng(routeWalked[routeWalked.length-2].latitude, routeWalked[routeWalked.length-2].longitude);
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
-                renderRoute(origin, destination, 'blue');
+                MapFactory.renderRoute(origin, destination, 'blue');
             }
 
         }, function(error){
@@ -218,37 +147,5 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
         return d * 1000;
-    }
-
-    function renderRoute(origin, destination, color){
-        if(typeof color === 'undefined'){ color = 'green'; }
-
-        var polylineOptions = {
-            strokeColor: color,
-            strokeOpacity: 1,
-            strokeWeight: 4
-        };
-
-        var request = {
-            origin: origin,
-            destination: destination,
-            travelMode: google.maps.TravelMode.WALKING
-        };
-        dirService.route(request, function(response, status){
-            if(status === google.maps.DirectionsStatus.OK){
-                var legs = response.routes[0].legs;
-                for (i = 0; i < legs.length; i++){
-                    var steps = legs[i].steps;
-                    for (j = 0; j < steps.length; j++) {
-                        var nextSegment = steps[j].path;
-                        var stepPolyline = new google.maps.Polyline(polylineOptions);
-                        for (k = 0; k < nextSegment.length; k++) {
-                            stepPolyline.getPath().push(nextSegment[k]);
-                        }
-                        stepPolyline.setMap($scope.map);
-                    }
-                }
-            }
-        });
     }
 };

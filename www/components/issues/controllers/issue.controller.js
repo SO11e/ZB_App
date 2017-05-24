@@ -1,8 +1,8 @@
-module.exports = function ($scope, $state, $stateParams, $cordovaGeolocation, IssuesFactory, IssueMapFactory) {
+module.exports = function ($scope, $state, $stateParams, $cordovaGeolocation, IssuesFactory, MapFactory) {
 
     IssuesFactory.getIssue($stateParams.issueId).then(function (issue) {
         $scope.issue = issue;
-        IssueMapFactory.showMap($scope.issue.latitude, $scope.issue.longitude, function () {
+        MapFactory.showIssueMap($scope.issue.latitude, $scope.issue.longitude, function () {
             $scope.hideSpinner = true;
         });
     }, function (error) {

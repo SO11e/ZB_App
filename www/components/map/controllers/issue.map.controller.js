@@ -1,4 +1,4 @@
-module.exports = function ($scope, $cordovaGeolocation, IssueMapFactory) {
+module.exports = function ($scope, $cordovaGeolocation, MapFactory) {
 
     // Google Maps options
     var options = {
@@ -8,10 +8,10 @@ module.exports = function ($scope, $cordovaGeolocation, IssueMapFactory) {
 
     // Sets map to current location
     $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-        IssueMapFactory.showMap(position.coords.latitude, position.coords.longitude)
+        MapFactory.showIssueMap(position.coords.latitude, position.coords.longitude);
         $scope.hideSpinner = true;
     }, function(error){
-        IssueMapFactory.showLocationError();
+        MapFactory.showLocationError();
         $scope.hideSpinner = true;
     });
 };

@@ -17,6 +17,11 @@
   "MAP_UNKNOWN_LOCATION_EXPLANATION": "Uw huidige locatie kan niet opgehaald worden. Zorg ervoor dat locatievoorzieningen ingeschakeld zijn en dat de app toegang heeft tot deze gegevens.",
   "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Oké",
 
+  "MAP_ROUTE_STOP": "Route stoppen",
+  "MAP_ROUTE_STOP_EXPLANATION": "Wilt u deze route opslaan?",
+  "MAP_ROUTE_STOP_YES": "Ja",
+  "MAP_ROUTE_STOP_NO": "Nee",
+
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",
   "SETTINGS_LOGOUT_BUTTON": "Uitloggen",
