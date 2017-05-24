@@ -81,17 +81,15 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             });
 
             //Add routes walked
-            var peter = 0;
+            var counter = 0;
             RoutesWalkedFactory.getRoutesWalked().then(function(rw){
                 for(var j = 0; j < rw.length; j++){
-                    console.log("Route: " + j);
                     for(var i = 0; i < rw[j].waypoints.length; i++){
-                        console.log("w: " + i);
                         if(i > 0){
                             var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
                             var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
-                            peter++;
-                            renderRoute(origin, destination, 'green');
+                            counter++;
+                            setTimeout(renderRoute, counter*400, origin, destination, 'green');
                         }
                     }
                 }
@@ -137,7 +135,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
                     RoutesWalkedFactory.addRouteWalked(routeWalked).then(function(res){
-                        //$window.location.reload(true);
+                        $window.location.reload(true);
                     });
                 }
                 else{
