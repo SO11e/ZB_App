@@ -260,22 +260,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 destination: destination,
                 travelMode: google.maps.TravelMode.WALKING
             };
-            dirService.route(request, function(response, status){
-                if(status === google.maps.DirectionsStatus.OK){
-                    var legs = response.routes[0].legs;
-                    for (i = 0; i < legs.length; i++){
-                        var steps = legs[i].steps;
-                        for (j = 0; j < steps.length; j++) {
-                            var nextSegment = steps[j].path;
-                            var stepPolyline = new google.maps.Polyline(polylineOptions);
-                            for (k = 0; k < nextSegment.length; k++) {
-                                stepPolyline.getPath().push(nextSegment[k]);
-                            }
-                            stepPolyline.setMap($scope.map);
-                        }
-                    }
-                }
-            });
         }
         else{
             var request = {
@@ -284,22 +268,22 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 waypoints: waypoints,
                 travelMode: google.maps.TravelMode.WALKING
             };
-            dirService.route(request, function(response, status){
-                if(status === google.maps.DirectionsStatus.OK){
-                    var legs = response.routes[0].legs;
-                    for (i = 0; i < legs.length; i++){
-                        var steps = legs[i].steps;
-                        for (j = 0; j < steps.length; j++) {
-                            var nextSegment = steps[j].path;
-                            var stepPolyline = new google.maps.Polyline(polylineOptions);
-                            for (k = 0; k < nextSegment.length; k++) {
-                                stepPolyline.getPath().push(nextSegment[k]);
-                            }
-                            stepPolyline.setMap($scope.map);
+        }
+        dirService.route(request, function(response, status){
+            if(status === google.maps.DirectionsStatus.OK){
+                var legs = response.routes[0].legs;
+                for (i = 0; i < legs.length; i++){
+                    var steps = legs[i].steps;
+                    for (j = 0; j < steps.length; j++) {
+                        var nextSegment = steps[j].path;
+                        var stepPolyline = new google.maps.Polyline(polylineOptions);
+                        for (k = 0; k < nextSegment.length; k++) {
+                            stepPolyline.getPath().push(nextSegment[k]);
                         }
+                        stepPolyline.setMap($scope.map);
                     }
                 }
-            });
-        }
+            }
+        });
     }
 };
