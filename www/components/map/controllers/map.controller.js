@@ -56,9 +56,8 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                     });
 
                     var infoWindow = new google.maps.InfoWindow();
-                    var content = '<img src="' + issues[i].foto + '" width="100"/>' +
-                        '<br>' + issues[i].toelichting +
-                        '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> ';
+                    var content = issues[i].description +
+                        '<br><a href="/#/app/issues/' + issues[i]._id + '">' + $translate.instant('MAP_MARKER_VIEW_ISSUE') + '</a> ';
                     google.maps.event.addListener(marker, 'click', (function (marker, content, infoWindow) {
                         return function () {
                             infoWindow.setContent(content);
