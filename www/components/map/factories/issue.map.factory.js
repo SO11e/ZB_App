@@ -9,7 +9,7 @@ module.exports = function ($ionicPopup, $translate, IssuesFactory, RoutesWalkedF
             disableDefaultUI: true
         };
 
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        var map = new google.maps.Map(document.getElementById("issue-map"), mapOptions);
 
         google.maps.event.addListenerOnce(map, 'idle', function() {
             new google.maps.Marker({
@@ -23,12 +23,7 @@ module.exports = function ($ionicPopup, $translate, IssuesFactory, RoutesWalkedF
     }
 
     function getCurrentAddress(geocoder, latLng, lat, lng) {
-        console.log("Getting current address");
-
         geocoder.geocode({'location': latLng}, function (results, status) {
-            console.log("GEOCODER RESPONSE: " + status);
-            console.log("RESULTS");
-            console.log(results);
             if (status === 'OK') {
                 if (results[0]) {
                     // variables for forLoops
@@ -84,7 +79,6 @@ module.exports = function ($ionicPopup, $translate, IssuesFactory, RoutesWalkedF
                     }
 
 
-                    console.log('Broadcasting: addressLoadedEvent');
                     // Broadcast address loaded
                     $rootScope.$broadcast('addressLoadedEvent', {
                         street: street,

@@ -29,14 +29,12 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
     };
 
     $rootScope.$on('addressLoadedEvent', function (event, data) {
-        console.log('Triggered: addressLoadedEvent');
         $scope.issue.street = data.street;
         $scope.issue.city = data.city;
         $scope.issue.postalCode = data.postalCode;
         $scope.issue.lat = data.lat;
         $scope.issue.lng = data.lng;
         $scope.$apply();
-        console.log(data); // 'Data to send'
     });
 
     
@@ -118,8 +116,6 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
     };
 
     $scope.saveIssue = function () {
-        console.log('Saving issue');
-
         var issue = {
             street : $scope.issue.street,
             city : $scope.issue.city,
@@ -132,8 +128,6 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
         if($scope.photoPath !== ""){
             issue.photoPath = $scope.photoPath;
         }
-        console.log('Posting issue to factory');
-        console.log(issue);
         IssuesFactory.postIssue(issue);
     };
 
