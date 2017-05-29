@@ -76,7 +76,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
             //Add routes walked
             var counter = 0;
             RoutesWalkedFactory.getRoutesWalked().then(function(rw){
-                console.log(rw);
                 for(var j = 0; j < rw.length; j++){
                     var waypoints = [];
                     var origin, destination;
@@ -258,7 +257,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                 travelMode: google.maps.TravelMode.WALKING
             };
         }
-        dirService.route(request, function(response, status){
+        new google.maps.DirectionsService().route(request, function(response, status){
             if(status === google.maps.DirectionsStatus.OK){
                 var legs = response.routes[0].legs;
                 for (i = 0; i < legs.length; i++) {
@@ -269,7 +268,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                         for (k = 0; k < nextSegment.length; k++) {
                             stepPolyline.getPath().push(nextSegment[k]);
                         }
-                        console.log(stepPolyline);
                         stepPolyline.setMap($scope.map);
                     }
                 }
