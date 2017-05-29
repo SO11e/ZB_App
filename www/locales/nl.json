@@ -37,6 +37,8 @@
   "MAP_UNKNOWN_LOCATION_EXPLANATION": "Uw huidige locatie kan niet opgehaald worden. Zorg ervoor dat locatievoorzieningen ingeschakeld zijn en dat de app toegang heeft tot deze gegevens.",
   "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Oké",
 
+  "MAP_MARKER_VIEW_ISSUE": "Melding bekijken",
+
   "MAP_ROUTE_START": "Route starten",
   "MAP_ROUTE_STOP": "Route stoppen",
   "MAP_ROUTE_STOP_EXPLANATION": "Wilt u deze route opslaan?",

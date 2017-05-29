@@ -37,6 +37,8 @@
   "MAP_UNKNOWN_LOCATION_EXPLANATION": "Your current location can not be found. Please make sure locationservices are enabled and that the application has access to this information.",
   "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Ok",
 
+  "MAP_MARKER_VIEW_ISSUE": "View issue",
+
   "MAP_ROUTE_START": "Start route",
   "MAP_ROUTE_STOP": "Stop route",
   "MAP_ROUTE_STOP_EXPLANATION": "Do you want to save this route??",
