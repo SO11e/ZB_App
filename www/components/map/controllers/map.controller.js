@@ -56,9 +56,8 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                     });
 
                     var infoWindow = new google.maps.InfoWindow();
-                    var content = '<img src="' + issues[i].foto + '" width="100"/>' +
-                        '<br>' + issues[i].toelichting +
-                        '<br><a href="/#/app/issues/' + issues[i].id + '">Melding</a> ';
+                    var content = issues[i].description +
+                        '<br><a href="/#/app/issues/' + issues[i]._id + '">' + $translate.instant('MAP_MARKER_VIEW_ISSUE') + '</a> ';
                     google.maps.event.addListener(marker, 'click', (function (marker, content, infoWindow) {
                         return function () {
                             infoWindow.setContent(content);
@@ -75,15 +74,39 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
 
             //Add routes walked
             var counter = 0;
-            RoutesWalkedFactory.getRoutesWalked().then(function (rw) {
-                for (var j = 0; j < rw.length; j++) {
-                    for (var i = 0; i < rw[j].waypoints.length; i++) {
-                        if (i > 0) {
-                            var origin = new google.maps.LatLng(rw[j].waypoints[i - 1].latitude, rw[j].waypoints[i - 1].longitude);
-                            var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
-                            counter++;
-                            setTimeout(renderRoute, counter * 400, origin, destination, 'green');
+            RoutesWalkedFactory.getRoutesWalked().then(function(rw){
+                for(var j = 0; j < rw.length; j++){
+                    var waypoints = [];
+                    var origin, destination;
+                    for(var i = 0; i < rw[j].waypoints.length; i++){
+                        if(i == 0){
+                            origin = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
                         }
+                        else if(i == rw[j].waypoints.length - 1){
+                            destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                        }
+                        else{
+                            waypoints.push({
+                                location: new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude),
+                                stopover: false
+                            });
+                        }
+                        // if(i > 0){
+                        //     var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
+                        //     var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                        //     counter++;
+                        //     setTimeout(renderRoute, counter*400, origin, destination, 'green');
+                        // }
+                    }
+                    if(typeof origin === 'undefined' || typeof destination === 'undefined'){
+                        continue;
+                    }
+                    counter++;
+                    if(waypoints.length > 0){
+                        setTimeout(renderRoute, counter*400, origin, destination, 'green', waypoints);
+                    }
+                    else{
+                        setTimeout(renderRoute, counter*400, origin, destination, 'green');
                     }
                 }
             });
@@ -192,10 +215,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         }, function (error) {
             // Show Could not get location alert dialog
             gpsEnabled = false;
-            var alertPopup = $ionicPopup.alert({
-                title: 'Geen locatie',
-                template: 'We kunnen helaas uw huidige locatie niet ophalen'
-            });
+            MapFactory.showLocationError();
 
             clearInterval(timer);
         });
@@ -213,24 +233,31 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         return d * 1000;
     }
 
-    function renderRoute(origin, destination, color) {
-        if (typeof color === 'undefined') {
-            color = 'green';
-        }
-
+    function renderRoute(origin, destination, color, waypoints){
+        if(typeof color === 'undefined'){ color = 'green'; }
         var polylineOptions = {
             strokeColor: color,
             strokeOpacity: 1,
             strokeWeight: 4
         };
 
-        var request = {
-            origin: origin,
-            destination: destination,
-            travelMode: google.maps.TravelMode.WALKING
-        };
-        new google.maps.DirectionsService().route(request, function (response, status) {
-            if (status === google.maps.DirectionsStatus.OK) {
+        if(typeof waypoints === 'undefined'){
+            var request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+        }
+        else{
+            var request = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+        }
+        new google.maps.DirectionsService().route(request, function(response, status){
+            if(status === google.maps.DirectionsStatus.OK){
                 var legs = response.routes[0].legs;
                 for (i = 0; i < legs.length; i++) {
                     var steps = legs[i].steps;
