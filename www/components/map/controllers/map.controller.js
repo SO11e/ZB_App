@@ -217,10 +217,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         }, function (error) {
             // Show Could not get location alert dialog
             gpsEnabled = false;
-            var alertPopup = $ionicPopup.alert({
-                title: 'Geen locatie',
-                template: 'We kunnen helaas uw huidige locatie niet ophalen'
-            });
+            MapFactory.showLocationError();
 
             clearInterval(timer);
         });
