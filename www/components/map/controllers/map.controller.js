@@ -74,24 +74,20 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             }
 
             google.maps.event.addListener($scope.map, 'click', function(event){
-                console.log('latLng: ' + event.latLng.lat() + ', ' + event.latLng.lng());
-
                 testLat = event.latLng.lat();
                 testLng = event.latLng.lng();
             });
 
             //Add routes walked
-            var peter = 0;
+            var counter = 0;
             RoutesWalkedFactory.getRoutesWalked().then(function(rw){
                 for(var j = 0; j < rw.length; j++){
-                    console.log("Route: " + j);
                     for(var i = 0; i < rw[j].waypoints.length; i++){
-                        console.log("w: " + i);
                         if(i > 0){
                             var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
                             var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
-                            peter++;
-                            renderRoute(origin, destination, 'green');
+                            counter++;
+                            setTimeout(renderRoute, counter*400, origin, destination, 'green');
                         }
                     }
                 }
@@ -108,8 +104,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
         if(typeof timer === 'undefined'){
             if(gpsEnabled){
                 if(typeof timer === 'undefined'){
-                    console.log('start route');
-
                     routeWalked = [];
 
                     timer = setInterval(updateRoute, 3000);
@@ -132,12 +126,11 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
 
             popup.then(function (res) {
                 if(res){
-                    console.log('end route');
                     clearInterval(timer);
                     timer = undefined;
                     document.getElementById("route-button").innerHTML = "Start route";
                     RoutesWalkedFactory.addRouteWalked(routeWalked).then(function(res){
-                        //$window.location.reload(true);
+                        $window.location.reload(true);
                     });
                 }
                 else{
@@ -173,7 +166,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
                 renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
             return;
         }
@@ -203,7 +195,6 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length-1].latitude, routeWalked[routeWalked.length-1].longitude);
                 renderRoute(origin, destination, 'blue');
             }
-            console.log(routeWalked);
 
         }, function(error){
             // Show Could not get location alert dialog

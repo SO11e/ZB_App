@@ -19,7 +19,7 @@ module.exports = function ($stateProvider) {
                 },
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.add.html',
-                    controller: 'IssueController'
+                    controller: 'IssueAddController'
                 }
             }
         })
