@@ -81,14 +81,39 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             //Add routes walked
             var counter = 0;
             RoutesWalkedFactory.getRoutesWalked().then(function(rw){
+                console.log(rw);
                 for(var j = 0; j < rw.length; j++){
+                    var waypoints = [];
+                    var origin, destination;
                     for(var i = 0; i < rw[j].waypoints.length; i++){
-                        if(i > 0){
-                            var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
-                            var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
-                            counter++;
-                            setTimeout(renderRoute, counter*400, origin, destination, 'green');
+                        if(i == 0){
+                            origin = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
                         }
+                        else if(i == rw[j].waypoints.length - 1){
+                            destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                        }
+                        else{
+                            waypoints.push({
+                                location: new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude),
+                                stopover: false
+                            });
+                        }
+                        // if(i > 0){
+                        //     var origin = new google.maps.LatLng(rw[j].waypoints[i-1].latitude, rw[j].waypoints[i-1].longitude);
+                        //     var destination = new google.maps.LatLng(rw[j].waypoints[i].latitude, rw[j].waypoints[i].longitude);
+                        //     counter++;
+                        //     setTimeout(renderRoute, counter*400, origin, destination, 'green');
+                        // }
+                    }
+                    if(typeof origin === 'undefined' || typeof destination === 'undefined'){
+                        continue;
+                    }
+                    counter++;
+                    if(waypoints.length > 0){
+                        setTimeout(renderRoute, counter*400, origin, destination, 'green', waypoints);
+                    }
+                    else{
+                        setTimeout(renderRoute, counter*400, origin, destination, 'green');
                     }
                 }
             });
@@ -220,7 +245,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
         return d * 1000;
     }
 
-    function renderRoute(origin, destination, color){
+    function renderRoute(origin, destination, color, waypoints){
         if(typeof color === 'undefined'){ color = 'green'; }
 
         var polylineOptions = {
@@ -229,26 +254,52 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, Iss
             strokeWeight: 4
         };
 
-        var request = {
-            origin: origin,
-            destination: destination,
-            travelMode: google.maps.TravelMode.WALKING
-        };
-        dirService.route(request, function(response, status){
-            if(status === google.maps.DirectionsStatus.OK){
-                var legs = response.routes[0].legs;
-                for (i = 0; i < legs.length; i++){
-                    var steps = legs[i].steps;
-                    for (j = 0; j < steps.length; j++) {
-                        var nextSegment = steps[j].path;
-                        var stepPolyline = new google.maps.Polyline(polylineOptions);
-                        for (k = 0; k < nextSegment.length; k++) {
-                            stepPolyline.getPath().push(nextSegment[k]);
+        if(typeof waypoints === 'undefined'){
+            var request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+            dirService.route(request, function(response, status){
+                if(status === google.maps.DirectionsStatus.OK){
+                    var legs = response.routes[0].legs;
+                    for (i = 0; i < legs.length; i++){
+                        var steps = legs[i].steps;
+                        for (j = 0; j < steps.length; j++) {
+                            var nextSegment = steps[j].path;
+                            var stepPolyline = new google.maps.Polyline(polylineOptions);
+                            for (k = 0; k < nextSegment.length; k++) {
+                                stepPolyline.getPath().push(nextSegment[k]);
+                            }
+                            stepPolyline.setMap($scope.map);
                         }
-                        stepPolyline.setMap($scope.map);
                     }
                 }
-            }
-        });
+            });
+        }
+        else{
+            var request = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+            dirService.route(request, function(response, status){
+                if(status === google.maps.DirectionsStatus.OK){
+                    var legs = response.routes[0].legs;
+                    for (i = 0; i < legs.length; i++){
+                        var steps = legs[i].steps;
+                        for (j = 0; j < steps.length; j++) {
+                            var nextSegment = steps[j].path;
+                            var stepPolyline = new google.maps.Polyline(polylineOptions);
+                            for (k = 0; k < nextSegment.length; k++) {
+                                stepPolyline.getPath().push(nextSegment[k]);
+                            }
+                            stepPolyline.setMap($scope.map);
+                        }
+                    }
+                }
+            });
+        }
     }
 };
