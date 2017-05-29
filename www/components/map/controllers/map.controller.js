@@ -272,6 +272,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                         for (k = 0; k < nextSegment.length; k++) {
                             stepPolyline.getPath().push(nextSegment[k]);
                         }
+                        console.log(stepPolyline);
                         stepPolyline.setMap($scope.map);
                     }
                 }
