@@ -1,23 +1,23 @@
 <ion-view id="reports-add" view-title="{{'ISSUES_ADD_TITLE' | translate}}">
     <ion-content class="padding">
         <ui-view name="map"></ui-view>
-        <h4 class="">
-            <span>{{ 'ISSUES_ADD_DESCRIPTION' | translate}}</span>
-        </h4>
+        <div class="item item-divider item-text-wrap">
+            {{ 'ISSUES_ADD_DESCRIPTION' | translate}}
+        </div>
         <form>
             <ion-list>
-                <label class="item item-input">
-                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}: {{issue.street}}</span>
-                </label>
-                <label class="item item-input">
-                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}: {{issue.city}}</span>
-                </label>
-                <label class="item item-input">
-                    <span>{{ 'ISSUES_ADD_PLACEHOLDER_POSTAL_CODE' | translate}}: {{issue.postalCode}}</span>
-                </label>
-                <label class="item item-input">
+                <div class="item">
+                    {{ 'ISSUES_ADD_PLACEHOLDER_STREET' | translate}}: {{issue.street}}
+                </div>
+                <div class="item">
+                    {{ 'ISSUES_ADD_PLACEHOLDER_CITY' | translate}}: {{issue.city}}
+                </div>
+                <div class="item">
+                    {{ 'ISSUES_ADD_PLACEHOLDER_POSTAL_CODE' | translate}}: {{issue.postalCode}}
+                </div>
+                <div class="item item-input">
                     <textarea ng-model="issue.description" placeholder="{{ 'ISSUES_ADD_PLACEHOLDER_EXPLANATION' | translate}}"></textarea>
-                </label>
+                </div>
             </ion-list>
             
             <button class="button button-block button-positive"

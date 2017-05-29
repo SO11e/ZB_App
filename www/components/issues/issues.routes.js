@@ -14,8 +14,7 @@ module.exports = function ($stateProvider) {
             url: '/add',
             views: {
                 'map@app.issues.add': {
-                    templateUrl: 'components/map/templates/issue.map.html',
-                    controller: 'IssueMapController'
+                    templateUrl: 'components/map/templates/issue.map.html'
                 },
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.add.html',
@@ -30,6 +29,9 @@ module.exports = function ($stateProvider) {
                 'issues@app': {
                     templateUrl: 'components/issues/templates/issues.details.html',
                     controller: 'IssueController'
+                },
+                'map@app.issues.details': {
+                    templateUrl: 'components/map/templates/issue.map.html'
                 }
             }
         });

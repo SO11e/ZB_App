@@ -1,4 +1,21 @@
-module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFactory, $cordovaCamera, $ionicPopup, $translate) {
+module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeolocation, $cordovaCamera, $ionicPopup, $translate, IssuesFactory, MapFactory) {
+
+    var mapOptions = {
+        timeout: 10000,
+        enableHighAccuracy: true
+    };
+
+    $cordovaGeolocation.getCurrentPosition(mapOptions).then(function(position){
+        MapFactory.showIssueMap(position.coords.latitude, position.coords.longitude, function () {
+            var geocoder = new google.maps.Geocoder;
+            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            MapFactory.getCurrentAddress(geocoder, latLng, position.coords.latitude, position.coords.longitude);
+            $scope.hideSpinner = true;
+        });
+    }, function(error){
+        MapFactory.showLocationError();
+        $scope.hideSpinner = true;
+    });
 
     $scope.photoPath = "";
     $scope.showPhoto = false;
@@ -125,20 +142,6 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
         $scope.showPhoto = false;
     };
 
-    // Get a FileEntry Object 
-    function getFileEntry(imgUri) {
-        window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
-            // Do something with the FileEntry object, like write to it, upload it, etc.
-            // writeFile(fileEntry, imgUri);
-            console.log("got file: " + fileEntry.fullPath);
-            // displayFileData(fileEntry.nativeURL, "Native URL");
-
-        }, function () {
-            // If don't get the FileEntry (which may happen when testing
-            // on some emulators), copy to a new FileEntry.
-            createNewFileEntry(imgUri);
-            });
-    }
     function createNewFileEntry(imgUri) {
         window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
 
@@ -154,6 +157,7 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
 
         }, onErrorResolveUrl);
     }
+
     function setOptions(srcType) {
         var options = {
             // Some common settings are 20, 50, and 100
@@ -170,5 +174,4 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, IssuesFacto
         }
         return options;
     }
-
 };

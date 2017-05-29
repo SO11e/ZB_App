@@ -55,7 +55,7 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                 console.log('API SUCCESS RESPONSE');
                 console.log(response.data);
 
-                if(issue.photoPath !== ""){
+                /*if(issue.photoPath !== ""){
                     console.log('photoPath: ' + issue.photoPath);
                     
                     if(response.data._id !== null){
@@ -102,13 +102,13 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                     }
 
                     
-                } else {
+                } else { */
                     $ionicPopup.alert({
                         title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
                         template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
                         okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
                     });
-                }
+                // }
 
                 return response.data;
             }, function(error) {
