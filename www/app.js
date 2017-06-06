@@ -32,6 +32,8 @@ angular.module('zonnebloem', [
 
             if (AuthorizationFactory.getAuthToken() === null || AuthorizationFactory.getAuthToken() === undefined) {
                 $state.go('app.login');
+            } else {
+                $state.go('app.map');
             }
         });
     });
