@@ -6,5 +6,5 @@ module.exports = function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'main.html'
         });
 
-    $urlRouterProvider.otherwise('/app/map');
+    $urlRouterProvider.otherwise('/app/login');
 };
