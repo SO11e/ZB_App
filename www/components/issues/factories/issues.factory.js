@@ -17,6 +17,7 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
     }
 
     function getIssue(issueId) {
+        console.log(token);
         return $http.get(hostname + "/issues/" + issueId, { headers: { 'bearer': token } }).then(function (response) {
             return response.data;
         }, function (error) {

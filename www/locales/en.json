@@ -44,6 +44,7 @@
   "MAP_ROUTE_STOP_EXPLANATION": "Do you want to save this route??",
   "MAP_ROUTE_STOP_YES": "Yes",
   "MAP_ROUTE_STOP_NO": "No",
+  "MAP_REFRESH": "Refresh",
 
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",

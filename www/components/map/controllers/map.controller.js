@@ -4,7 +4,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
     var timer = undefined;
     var routeWalked = {};
 
-    var test = true;
+    var test = false;
     var testLat;
     var testLng;
 
@@ -35,7 +35,7 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
 
         // Map options
         var mapOptions = {
-            zoom: 12,
+            zoom: 15,
             center: latLng,
             disableDefaultUI: true
         };
@@ -119,6 +119,30 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         $state.go("app.map.addIssue");
     };
 
+    $scope.refreshMap = function(){
+        if (typeof timer === 'undefined') {
+            $window.location.reload(true);
+        }
+        else{
+            $ionicPopup.confirm({
+                title: 'Refresh',
+                template: 'De huidige route zal verloren gaan. Wilt u de pagina refreshen?',
+                okText: 'Ja',
+                cancelText: 'Nee'
+            }).then(function (res) {
+                if (res) {
+                    clearInterval(timer);
+                    timer = undefined;
+                    document.getElementById("route-button").innerHTML = "Start route";
+                    $window.location.reload(true);
+                }
+                else {
+
+                }
+            });
+        }
+    };
+
     $scope.walkRoute = function () {
         if (typeof timer === 'undefined') {
             if (gpsEnabled) {
@@ -134,13 +158,31 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
             }
         }
         else {
-            $ionicPopup.confirm({
-                title: $translate.instant('MAP_ROUTE_STOP'),
-                template: $translate.instant('MAP_ROUTE_STOP_EXPLANATION'),
-                okText: $translate.instant('MAP_ROUTE_STOP_YES'),
-                cancelText: $translate.instant('MAP_ROUTE_STOP_NO')
-            })
-                .then(function (res) {
+            if(routeWalked.length <= 1){
+                $ionicPopup.confirm({
+                    title: 'Route afronden',
+                    template: 'Deze route is te kort. Wilt doorgaan of beëindigen?',
+                    okText: 'Doorgaan',
+                    cancelText: 'Beëindigen'
+                }).then(function (res) {
+                    if (res) {
+
+                    }
+                    else {
+                        clearInterval(timer);
+                        timer = undefined;
+                        document.getElementById("route-button").innerHTML = "Start route";
+                        $window.location.reload(true);
+                    }
+                });
+            }
+            else{
+                $ionicPopup.confirm({
+                    title: $translate.instant('MAP_ROUTE_STOP'),
+                    template: $translate.instant('MAP_ROUTE_STOP_EXPLANATION'),
+                    okText: $translate.instant('MAP_ROUTE_STOP_YES'),
+                    cancelText: $translate.instant('MAP_ROUTE_STOP_NO')
+                }).then(function (res) {
                     if (res) {
                         clearInterval(timer);
                         timer = undefined;
@@ -150,9 +192,10 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                         });
                     }
                     else {
-
+                        $window.location.reload(true);
                     }
                 });
+            }
         }
     };
 
@@ -182,43 +225,42 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
                 var destination = new google.maps.LatLng(routeWalked[routeWalked.length - 1].latitude, routeWalked[routeWalked.length - 1].longitude);
                 renderRoute(origin, destination, 'blue');
             }
-
-            return;
         }
-
-        $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
-            if (routeWalked.length > 0) {
-                if (measure(routeWalked[routeWalked.length - 1].latitude, routeWalked[routeWalked.length - 1].longitude, position.coords.latitude, position.coords.longitude) > 20) {
+        else{
+            $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+                if (routeWalked.length > 0) {
+                    if (measure(routeWalked[routeWalked.length - 1].latitude, routeWalked[routeWalked.length - 1].longitude, position.coords.latitude, position.coords.longitude) > 20) {
+                        routeWalked.push({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        });
+                    }
+                }
+                else {
                     routeWalked.push({
-                        latitude: testLat,
-                        longitude: testLng
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
                     });
                 }
-            }
-            else {
-                routeWalked.push({
-                    latitude: testLat,
-                    longitude: testLng
-                });
-            }
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-            $scope.map.setCenter(pos);
+                $scope.map.setCenter(pos);
 
-            //update route
-            if (routeWalked.length > 1) {
-                var origin = new google.maps.LatLng(routeWalked[routeWalked.length - 2].latitude, routeWalked[routeWalked.length - 2].longitude);
-                var destination = new google.maps.LatLng(routeWalked[routeWalked.length - 1].latitude, routeWalked[routeWalked.length - 1].longitude);
-                renderRoute(origin, destination, 'blue');
-            }
+                //update route
+                if (routeWalked.length > 1) {
+                    var origin = new google.maps.LatLng(routeWalked[routeWalked.length - 2].latitude, routeWalked[routeWalked.length - 2].longitude);
+                    var destination = new google.maps.LatLng(routeWalked[routeWalked.length - 1].latitude, routeWalked[routeWalked.length - 1].longitude);
+                    renderRoute(origin, destination, 'blue');
+                }
 
-        }, function (error) {
-            // Show Could not get location alert dialog
-            gpsEnabled = false;
-            MapFactory.showLocationError();
+            }, function (error) {
+                // Show Could not get location alert dialog
+                gpsEnabled = false;
+                MapFactory.showLocationError();
 
-            clearInterval(timer);
-        });
+                clearInterval(timer);
+            });
+        }
     }
 
     function measure(lat1, lon1, lat2, lon2) {
