@@ -125,10 +125,10 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         }
         else{
             $ionicPopup.confirm({
-                title: 'Refresh',
-                template: 'De huidige route zal verloren gaan. Wilt u de pagina refreshen?',
-                okText: 'Ja',
-                cancelText: 'Nee'
+                title: $translate.instant('MAP_ROUTE_REFRESH_TITLE'),
+                template: $translate.instant('MAP_ROUTE_REFRESH_TEXT'),
+                okText: $translate.instant('MAP_ROUTE_STOP_YES'),
+                cancelText: $translate.instant('MAP_ROUTE_STOP_NO')
             }).then(function (res) {
                 if (res) {
                     clearInterval(timer);
@@ -160,10 +160,10 @@ module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $wi
         else {
             if(routeWalked.length <= 1){
                 $ionicPopup.confirm({
-                    title: 'Route afronden',
-                    template: 'Deze route is te kort. Wilt doorgaan of beëindigen?',
-                    okText: 'Doorgaan',
-                    cancelText: 'Beëindigen'
+                    title: $translate.instant('MAP_ROUTE_STOP'),
+                    template: $translate.instant('MAP_ROUTE_SHORT'),
+                    okText: $translate.instant('MAP_ROUTE_CONTINUE'),
+                    cancelText: $translate.instant('MAP_ROUTE_END')
                 }).then(function (res) {
                     if (res) {
 

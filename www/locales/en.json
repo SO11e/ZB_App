@@ -44,7 +44,11 @@
   "MAP_ROUTE_STOP_EXPLANATION": "Do you want to save this route??",
   "MAP_ROUTE_STOP_YES": "Yes",
   "MAP_ROUTE_STOP_NO": "No",
-  "MAP_REFRESH": "Refresh",
+  "MAP_ROUTE_SHORT": "This route is too short. Do you want to continue or end the route?",
+  "MAP_ROUTE_CONTINUE": "Continue",
+  "MAP_ROUTE_END": "End",
+  "MAP_ROUTE_REFRESH_TITLE": "Refresh",
+  "MAP_ROUTE_REFRESH_TEXT": "The current route will be lost. Do you want to refresh the page?",
 
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",

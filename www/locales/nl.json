@@ -44,7 +44,11 @@
   "MAP_ROUTE_STOP_EXPLANATION": "Wilt u deze route opslaan?",
   "MAP_ROUTE_STOP_YES": "Ja",
   "MAP_ROUTE_STOP_NO": "Nee",
-  "MAP_REFRESH": "Refresh",
+  "MAP_ROUTE_SHORT": "Deze route is te kort. Wilt doorgaan of beëindigen?",
+  "MAP_ROUTE_CONTINUE": "Doorgaan",
+  "MAP_ROUTE_END": "Beëindigen",
+  "MAP_ROUTE_REFRESH_TITLE": "Herladen",
+  "MAP_ROUTE_REFRESH_TEXT": "De huidige route zal verloren gaan. Wilt u de pagina herladen?",
 
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",
