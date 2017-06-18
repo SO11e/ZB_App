@@ -61,6 +61,7 @@
   "SETTINGS_LANGUAGE_DUTCH": "Dutch",
   "SETTINGS_LANGUAGE_ENGLISH": "English",
 
+  "LOGIN_TITLE": "Login",
   "LOGIN_EMAIL_PLACEHOLDER": "Email address",
   "LOGIN_PASSWORD_PLACEHOLDER": "Password",
   "LOGIN_ERROR_TITLE": "Error while login in",

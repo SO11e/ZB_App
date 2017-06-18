@@ -10,7 +10,7 @@ var browserify = require('browserify');
 var vinylSource = require('vinyl-source-stream');
 
 var paths = {
-    sass: ['./scss/**/*.scss', './www/**/*.scss'],
+    sass: ['./scss/**/*.scss'],
     browserify: ['./www/**/*.js']
 };
 
