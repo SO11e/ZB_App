@@ -4,7 +4,6 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     function getIssues() {
         return $http.get(hostname + "/issues", { headers: { 'bearer': token } }).then(function (response) {
-
             //TEMP
             for (var i = 0; i < response.data.data.length; i++) {
                 response.data.data[i].photo = "img/chasseveld.png";
@@ -17,7 +16,6 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
     }
 
     function getIssue(issueId) {
-        console.log(token);
         return $http.get(hostname + "/issues/" + issueId, { headers: { 'bearer': token } }).then(function (response) {
             return response.data;
         }, function (error) {
