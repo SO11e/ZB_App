@@ -61,6 +61,7 @@
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
 
+  "LOGIN_TITLE": "Inloggen",
   "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
   "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",
   "LOGIN_ERROR_TITLE": "Fout bij het inloggen",

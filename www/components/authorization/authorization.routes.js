@@ -3,7 +3,7 @@ module.exports = function ($stateProvider) {
         .state('app.login', {
             url: '/login',
             views: {
-                'settings': {
+                'login': {
                     templateUrl: 'components/authorization/templates/login.html',
                     controller: 'LoginController'
                 }
