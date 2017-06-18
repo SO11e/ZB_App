@@ -4,9 +4,11 @@
               ng-submit="login()">
             <div class="list">
                 <label class="item item-input">
-                    <input name="email" type="text" placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}" ng-model="credentials.email" required>
+                    <i class="icon ion-ios-email padding-right"></i>
+                    <input name="email" type="email" placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}" ng-model="credentials.email" required>
                 </label>
                 <label class="item item-input">
+                    <i class="icon ion-ios-locked padding-right"></i>
                     <input name="password" type="password" placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}" ng-model="credentials.password" required>
                 </label>
                 <button type="submit" class="button button-full button-balanced" translate="SETTINGS_LOGIN_BUTTON"></button>
