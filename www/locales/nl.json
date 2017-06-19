@@ -1,5 +1,6 @@
 {
   "ISSUES_LIST_TITLE": "Meldingen",
+  "ISSUES_LIST_SEARCHBAR": "Zoek naar een straat om te kijken of er meldingen zijn",
   "ISSUES_ADDED_AT_DATE": "Toegevoegd op",
   "ISSUES_SOLVED_AT_DATE": "Opgelost op",
 
@@ -44,6 +45,11 @@
   "MAP_ROUTE_STOP_EXPLANATION": "Wilt u deze route opslaan?",
   "MAP_ROUTE_STOP_YES": "Ja",
   "MAP_ROUTE_STOP_NO": "Nee",
+  "MAP_ROUTE_SHORT": "Deze route is te kort. Wilt doorgaan of beëindigen?",
+  "MAP_ROUTE_CONTINUE": "Doorgaan",
+  "MAP_ROUTE_END": "Beëindigen",
+  "MAP_ROUTE_REFRESH_TITLE": "Herladen",
+  "MAP_ROUTE_REFRESH_TEXT": "De huidige route zal verloren gaan. Wilt u de pagina herladen?",
 
   "SETTINGS_TITLE": "Instellingen",
   "SETTINGS_LOGIN_BUTTON": "Inloggen",
@@ -56,6 +62,7 @@
   "SETTINGS_LANGUAGE_DUTCH": "Nederlands",
   "SETTINGS_LANGUAGE_ENGLISH": "Engels",
 
+  "LOGIN_TITLE": "Inloggen",
   "LOGIN_EMAIL_PLACEHOLDER": "E-mailadres",
   "LOGIN_PASSWORD_PLACEHOLDER": "Wachtwoord",
   "LOGIN_ERROR_TITLE": "Fout bij het inloggen",

@@ -21,7 +21,7 @@ angular.module('zonnebloem', [
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             if (window.Keyboard) {
-                Keyboard.hideFormAccessoryBar(true);
+                Keyboard.hideFormAccessoryBar(false);
                 Keyboard.shrinkView(true);
                 Keyboard.disableScrollingInShrinkView(true);
             }
