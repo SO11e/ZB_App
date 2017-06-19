@@ -1,11 +1,10 @@
 module.exports = function (hostname, $http, $localStorage, $ionicPopup, $translate) {
 
     function login(credentials) {
-        return $http.post(hostname + "/login", JSON.stringify(credentials), {headers: {'Content-Type': 'application/json'}})
+        return $http.post(hostname + "/login", JSON.stringify(credentials), { headers: { 'Content-Type': 'application/json' } })
             .then(function (response) {
                 return response.data;
             }, function (error) {
-                // console.error(error.status);
                 showAlert();
             });
     }
@@ -22,12 +21,6 @@ module.exports = function (hostname, $http, $localStorage, $ionicPopup, $transla
         delete $localStorage.user;
     }
 
-    function getUsername() {
-        if ($localStorage.user) {
-            return $localStorage.user.local.username;
-        }
-    }
-
     function getAuthToken() {
         return $localStorage.authToken;
     }
@@ -40,6 +33,12 @@ module.exports = function (hostname, $http, $localStorage, $ionicPopup, $transla
         delete $localStorage.authToken;
     }
 
+    function getUserRegion() {
+        if ($localStorage.user) {
+            return $localStorage.user.region._id;
+        }
+    }
+
     function showAlert() {
         $ionicPopup.alert({
             title: $translate.instant('LOGIN_ERROR_TITLE'),
@@ -50,13 +49,12 @@ module.exports = function (hostname, $http, $localStorage, $ionicPopup, $transla
 
     return {
         login: login,
-        /*logout: logout,*/
         getUser: getUser,
         setUser: setUser,
         clearUser: clearUser,
-        getUsername: getUsername,
         getAuthToken: getAuthToken,
         setAuthToken: setAuthToken,
-        clearAuthToken: clearAuthToken
+        clearAuthToken: clearAuthToken,
+        getUserRegion: getUserRegion
     };
 };

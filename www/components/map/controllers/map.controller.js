@@ -1,5 +1,9 @@
 module.exports = function ($scope, $state, $cordovaGeolocation, $ionicPopup, $window, $translate, IssuesFactory, RoutesWalkedFactory, MapFactory) {
 
+    $scope.$on('$ionicView.beforeEnter', function(){
+        $scope.$root.hideTabs = "";
+    });
+    
     var gpsEnabled = false;
     var timer = undefined;
     var routeWalked = {};

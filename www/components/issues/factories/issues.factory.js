@@ -1,9 +1,21 @@
 module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $translate, $cordovaFileTransfer) {
     var token = AuthorizationFactory.getAuthToken();
 
+    function getIssues(page, amount = 500) {
+        return $http.get(hostname + "/issues?page=" + page + "&perPage=" + amount, { headers: { 'bearer': token } }).then(function (response) {
+            //TEMP
+            for (var i = 0; i < response.data.data.length; i++) {
+                response.data.data[i].photo = "img/zonnebloem.png";
+            }
 
-    function getIssues() {
-        return $http.get(hostname + "/issues", { headers: { 'bearer': token } }).then(function (response) {
+            return response.data.data;
+        }, function (error) {
+            console.error(error);
+        });
+    }
+
+    function getIssuesForRegion(regionId, page, amount) {
+        return $http.get(hostname + "/issues/region/" + regionId + "?page=" + page + "&perPage=" + amount, { headers: { 'bearer': token } }).then(function (response) {
             //TEMP
             for (var i = 0; i < response.data.data.length; i++) {
                 response.data.data[i].photo = "img/chasseveld.png";
@@ -73,6 +85,7 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     return {
         getIssues: getIssues,
+        getIssuesForRegion: getIssuesForRegion,
         getIssue: getIssue,
         postIssue: postIssue
     };
