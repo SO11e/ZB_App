@@ -1,14 +1,7 @@
-module.exports = function ($scope, $translate, $localStorage, AuthorizationFactory ) {
-
-    $scope.lang = $localStorage.lang;
-    $translate.use($localStorage.lang);
+module.exports = function ($scope, AuthorizationFactory, SettingsFactory ) {
 
     $scope.user = AuthorizationFactory.getUser();
 
-    $scope.switchLanguage = function (language) {
-        $translate.use(language);
-        $localStorage.lang = language;
-        $scope.lang = $localStorage.lang;
-    };
+    $scope.switchLanguage = SettingsFactory.switchLanguage;
 
 };

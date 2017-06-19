@@ -3,11 +3,6 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     function getIssues(page, amount = 500) {
         return $http.get(hostname + "/issues?page=" + page + "&perPage=" + amount, { headers: { 'bearer': token } }).then(function (response) {
-            //TEMP
-            for (var i = 0; i < response.data.data.length; i++) {
-                response.data.data[i].photo = "img/zonnebloem.png";
-            }
-
             return response.data.data;
         }, function (error) {
             console.error(error);
@@ -16,11 +11,6 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     function getIssuesForRegion(regionId, page, amount) {
         return $http.get(hostname + "/issues/region/" + regionId + "?page=" + page + "&perPage=" + amount, { headers: { 'bearer': token } }).then(function (response) {
-            //TEMP
-            for (var i = 0; i < response.data.data.length; i++) {
-                response.data.data[i].photo = "img/chasseveld.png";
-            }
-
             return response.data.data;
         }, function (error) {
             console.error(error);
@@ -29,7 +19,7 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
 
     function getIssue(issueId) {
         return $http.get(hostname + "/issues/" + issueId, { headers: { 'bearer': token } }).then(function (response) {
-            return response.data;
+			return response.data;
         }, function (error) {
             console.error(error);
         });
@@ -57,17 +47,14 @@ module.exports = function (hostname, $http, AuthorizationFactory, $ionicPopup, $
                 description: issue.description,
                 region: regionId,
                 latitude: issue.lat,
-                longitude: issue.lng
+                longitude: issue.lng,
+                fullimage: issue.fullimage,
+                thumbnail: issue.thumbnail
             };
 
             return $http.post(hostname + '/issues', JSON.stringify(postIssue), { headers: { 'bearer': token, 'Content-Type': 'application/json' } }).then(function (response) {
                 if (response.status !== undefined) {
                     if (response.status === 201) {
-                        $ionicPopup.alert({
-                            title: $translate.instant('ISSUE_POST_SUCCESS_TITLE'),
-                            template: $translate.instant('ISSUE_POST_SUCCESS_EXPLANATION'),
-                            okText: $translate.instant('ISSUE_POST_SUCCESS_ACCEPT')
-                        });
                         return response.data;
                     }
                 }

@@ -16,7 +16,7 @@ angular.module('zonnebloem', [
     'zonnebloem.settings'
 ])
 
-    .run(function ($ionicPlatform, $state, AuthorizationFactory) {
+    .run(function ($ionicPlatform, $state, $localStorage, AuthorizationFactory, SettingsFactory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -35,5 +35,8 @@ angular.module('zonnebloem', [
             } else {
                 $state.go('app.map');
             }
+            
+            SettingsFactory.switchLanguage($localStorage.lang);
+            
         });
     });
