@@ -1,12 +1,24 @@
-module.exports = function ($scope, $ionicScrollDelegate, IssuesFactory, AuthorizationFactory) {
+module.exports = function ($scope, $ionicScrollDelegate, IssuesFactory, AuthorizationFactory, $ionicLoading) {
   var page = 0;
   var amount = 10;
   var region = AuthorizationFactory.getUserRegion();
 
-  IssuesFactory.getIssuesForRegion(region, page, amount).then(function (issues) {
-    $scope.issues = issues;
-    $scope.canLoadMore = canLoadMore(issues);
+  $scope.$on('$ionicView.enter', function () {
+    $scope.getIssuesForRegion();
   });
+
+  $scope.getIssuesForRegion = function () {
+    $ionicLoading.show({
+      template: '<ion-spinner></ion-spinner>'
+    }).then(function () {
+      IssuesFactory.getIssuesForRegion(region, page, amount).then(function (issues) {
+        $scope.issues = issues;
+        $scope.canLoadMore = canLoadMore(issues);
+        $scope.$broadcast('scroll.refreshComplete');
+        $ionicLoading.hide();
+      });
+    });
+  }
 
   $scope.loadMore = function () {
     page++;

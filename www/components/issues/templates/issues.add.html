@@ -22,20 +22,23 @@
             
             <button class="button button-block button-positive"
                     translate="ISSUES_ADD_TAKE_NEW_PHOTO"
-                    ng-click="takePhoto()"></button>
+                    ng-click="takePhoto()"
+                    ng-if="!issue.fullimage"></button>
             <button class="button button-block button-positive"
                     translate="ISSUES_ADD_SELECT_EXCISING_PHOTO"
-                    ng-click="addPhotoFromGallery()"></button>
+                    ng-click="addPhotoFromGallery()"
+                    ng-if="!issue.fullimage"></button>
 
-            <div class="card" ng-show="photoLoaded">
+            <div class="card" ng-show="issue.fullimage">
                 <ion-item class="item-image">
-                    <img ng-src="{{pictureUrl}}" style="width:100%;height:100px;"/>
+                    <img ng-src="{{issue.fullimage}}"/>
                 </ion-item>
             </div>
 
-            <button ng-if="issue.fullimage || issue.thumbnail" class="button button-block button-balanced"
+            <button class="button button-block button-assertive"
                     translate="ISSUES_ADD_REMOVE_PHOTO"
-                    ng-click="removePhoto()"></button>
+                    ng-click="removePhoto()"
+                    ng-if="issue.fullimage"></button>
             <button class="button button-block button-balanced"
                     translate="ISSUES_ADD_SAVE_ISSUE"
                     ng-click="saveIssue()"></button>

@@ -1,9 +1,9 @@
 <ion-view view-title="{{issue.streetName}} {{issue.houseNumber}}">
     <ion-content class="padding">
-        <div class="card">
+        <div class="card" ng-if=issue.fullimage>
             <div class="item item-image">
                 <img ng-src="{{issue.fullimage}}">
-				</div>
+			</div>
         </div>
         <div class="list list-inset">
             <div class="item">

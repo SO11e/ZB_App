@@ -1,4 +1,6 @@
 {
+  "PULL_TO_REFRESH": "Trek omlaag om te verversen",
+
   "ISSUES_LIST_TITLE": "Meldingen",
   "ISSUES_LIST_SEARCHBAR": "Zoek naar een straat om te kijken of er meldingen zijn",
   "ISSUES_ADDED_AT_DATE": "Toegevoegd op",
@@ -14,8 +16,8 @@
   "ISSUES_ADD_SELECT_EXCISING_PHOTO": "Selecteer foto uit gallerij",
   "ISSUES_ADD_REMOVE_PHOTO": "Foto verwijderen",
   "ISSUES_ADD_SAVE_ISSUE": "Melding opslaan",
-  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Fout bij het ophalen van de foto",
-  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het ophalen van de foto. Neem a.u.b. contact op met de beheerder.",
+  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Fout bij het toevoegen van de foto.",
+  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Er is iets fout gegaan tijdens het toevoegen van de foto. Neem a.u.b. contact op met de beheerder.",
   "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Oké",
   "ISSUES_ADD_LOCATION_NOT_FOUND": "Niet gevonden",
 

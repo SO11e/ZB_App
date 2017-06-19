@@ -1,4 +1,6 @@
 {
+  "PULL_TO_REFRESH": "Pull down to refresh",
+  
   "ISSUES_LIST_TITLE": "Issues",
   "ISSUES_LIST_SEARCHBAR": "Search a street to see if there are any issues",
   "ISSUES_ADDED_AT_DATE": "Added at",
@@ -13,8 +15,8 @@
   "ISSUES_ADD_SELECT_EXCISING_PHOTO": "Upload photo from gallery",
   "ISSUES_ADD_REMOVE_PHOTO": "Remove photo",
   "ISSUES_ADD_SAVE_ISSUE": "Save issue",
-  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Error while retrieving the photo.",
-  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Fout bij het ophalen van de foto. Please contact the Administrator.",
+  "ISSUES_ADD_PHOTO_ERROR_TITLE": "Error while adding the photo.",
+  "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Something went wrong when adding the photo. Please contact the administrator.",
   "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Ok.",
   "ISSUES_ADD_LOCATION_NOT_FOUND": "Not found",
   "ISSUE_POST_SUCCESS_TITLE": "Issue saved",
