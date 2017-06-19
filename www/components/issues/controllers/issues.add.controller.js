@@ -88,13 +88,10 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
 
     function setOptions(sourceType) {
         var options = {
-            quality: 100,
+            quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: sourceType,
             allowEdit: false,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 100,
-            targetHeight: 100,
             saveToPhotoAlbum: false,
             correctOrientation: true
         };
