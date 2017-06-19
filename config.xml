@@ -74,26 +74,26 @@
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="~4.3.1" />
-    <plugin name="cordova-plugin-camera" spec="~2.4.0">
+    <engine name="ios" spec="^4.4.0" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-console" spec="~1.0.6" />
-    <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">
+    <plugin name="cordova-plugin-console" spec="^1.0.7" />
+    <plugin name="cordova-plugin-crosswalk-webview" spec="^2.3.0">
         <variable name="XWALK_VERSION" value="23+" />
         <variable name="XWALK_LITEVERSION" value="xwalk_core_library_canary:17+" />
         <variable name="XWALK_COMMANDLINE" value="--disable-pull-to-refresh-effect" />
         <variable name="XWALK_MODE" value="embedded" />
         <variable name="XWALK_MULTIPLEAPK" value="true" />
     </plugin>
-    <plugin name="cordova-plugin-device" spec="~1.1.5" />
+    <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
-    <plugin name="cordova-plugin-geolocation" spec="~2.4.2">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="De Zonnebloem maakt gebruikt van uw locatie bij het toevoegen van een nieuwe melding." />
+    <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-keyboard" spec="~1.1.5" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.2" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.2" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.3.2" />
+    <plugin name="cordova-plugin-keyboard" spec="^1.1.5" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
 </widget>
