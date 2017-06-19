@@ -1,8 +1,8 @@
 {
   "ISSUES_LIST_TITLE": "Issues",
+  "ISSUES_LIST_SEARCHBAR": "Search a street to see if there are any issues",
   "ISSUES_ADDED_AT_DATE": "Added at",
   "ISSUES_SOLVED_AT_DATE": "Solved at",
-
   "ISSUES_ADD_TITLE": "Add issue",
   "ISSUES_ADD_DESCRIPTION": "Describe the problem and possibly add a photo. Then press the button 'Save issue'.",
   "ISSUES_ADD_PLACEHOLDER_STREET": "Street",
@@ -17,7 +17,6 @@
   "ISSUES_ADD_PHOTO_ERROR_EXPLANATION": "Fout bij het ophalen van de foto. Please contact the Administrator.",
   "ISSUES_ADD_PHOTO_ERROR_ACCEPT": "Ok.",
   "ISSUES_ADD_LOCATION_NOT_FOUND": "Not found",
-
   "ISSUE_POST_SUCCESS_TITLE": "Issue saved",
   "ISSUE_POST_SUCCESS_EXPLANATION": "The issue has been saved.",
   "ISSUE_POST_SUCCESS_ACCEPT": "Ok.",
@@ -30,15 +29,11 @@
   "ISSUE_POST_PHOTO_UPLOAD_ERROR_TITLE": "Error while uploading photo",
   "ISSUE_POST_PHOTO_UPLOAD_ERROR_EXPLANATION": "Something went wrong while uploading the photo. Please contact the Administrator.",
   "ISSUE_POST_PHOTO_UPLOAD_ERROR_ACCEPT": "Ok.",
-
   "MAP_TITLE": "Map",
-
   "MAP_UNKNOWN_LOCATION": "Location not found",
   "MAP_UNKNOWN_LOCATION_EXPLANATION": "Your current location can not be found. Please make sure locationservices are enabled and that the application has access to this information.",
   "MAP_UNKNOWN_LOCATION_ERROR_ACCEPT": "Ok",
-
   "MAP_MARKER_VIEW_ISSUE": "View issue",
-
   "MAP_ROUTE_START": "Start route",
   "MAP_ROUTE_STOP": "Stop route",
   "MAP_ROUTE_STOP_EXPLANATION": "Do you want to save this route??",
@@ -49,18 +44,16 @@
   "MAP_ROUTE_END": "End",
   "MAP_ROUTE_REFRESH_TITLE": "Refresh",
   "MAP_ROUTE_REFRESH_TEXT": "The current route will be lost. Do you want to refresh the page?",
-
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_LOGIN_BUTTON": "Login",
   "SETTINGS_LOGOUT_BUTTON": "Logout",
   "SETTINGS_GREETING_DIVIDER": "Hello, ",
-  "SETTINGS_EXPLANATION" : "Here you can see to which region you have been assigned. Furthermore you can change the language of the application.",
+  "SETTINGS_EXPLANATION": "Here you can see to which region you have been assigned. Furthermore you can change the language of the application.",
   "SETTINGS_REGION_DIVIDER": "Your region",
   "SETTINGS_REGION_NO_REGION": "You have not been assigned a region",
   "SETTINGS_LANGUAGE_DIVIDER": "Choose your language",
   "SETTINGS_LANGUAGE_DUTCH": "Dutch",
   "SETTINGS_LANGUAGE_ENGLISH": "English",
-
   "LOGIN_TITLE": "Login",
   "LOGIN_EMAIL_PLACEHOLDER": "Email address",
   "LOGIN_PASSWORD_PLACEHOLDER": "Password",
