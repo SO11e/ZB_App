@@ -88,7 +88,6 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
 
     function setOptions(sourceType) {
         var options = {
-            quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: sourceType,
             allowEdit: false,
