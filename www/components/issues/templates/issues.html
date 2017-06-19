@@ -14,7 +14,7 @@
             <div class="item item-thumbnail-left item-icon-right item-text-wrap"
                  ng-repeat="issue in issues | filter: filterIssues"
                  ui-sref="app.issues.details({ issueId : issue._id })">
-                <img ng-src="{{ issue.photo }}">
+                <img ng-src="{{issue.thumbnail}}">
                 <h2>{{ issue.streetName }} {{ issue.houseNumber }}</h2>
                 <p>{{ issue.zipCode }} {{ issue.city }}</p>
 				<p>{{ issue.description }}</p>

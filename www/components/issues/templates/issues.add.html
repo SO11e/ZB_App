@@ -33,7 +33,7 @@
                 </ion-item>
             </div>
 
-            <button class="button button-block button-balanced"
+            <button ng-if="issue.fullimage || issue.thumbnail" class="button button-block button-balanced"
                     translate="ISSUES_ADD_REMOVE_PHOTO"
                     ng-click="removePhoto()"></button>
             <button class="button button-block button-balanced"

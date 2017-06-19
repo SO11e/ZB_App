@@ -90,7 +90,7 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
     $scope.addPhotoFromGallery = function () {
         console.log('Opening gallery');
         
-        var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+        var srcType = navigator.camera.PictureSourceType.SAVEDPHOTOALBUM;
         var options = setOptions(srcType);
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
@@ -121,7 +121,7 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $cordovaGeo
             city : $scope.issue.city,
             postalCode : $scope.issue.postalCode,
             description : $scope.issue.description,
-            photoPath : "",
+            fullimage :  $scope.photo,
             lat : $scope.issue.lat,
             lng : $scope.issue.lng
         };
